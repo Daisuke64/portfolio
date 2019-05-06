@@ -12,7 +12,7 @@
   --red: #dc3545;
   --orange: #fd7e14;
   --yellow: #ffc107;
-  --green: #2855a7;
+  --green: #28a745;
   --teal: #20c997;
   --cyan: #17a2b8;
   --white: #fff;
@@ -7996,11 +7996,12 @@ a.text-dark:hover, a.text-dark:focus {
 
 body {
   font-family: "Nunito Sans", Arial, sans-serif;
-  background: #fff;
+  background: #2b6289;
   font-size: 16px;
   line-height: 1.8;
   font-weight: 400;
-  color: #999999; }
+  color: #999999;
+  }
   body.menu-show {
     overflow: hidden;
     position: fixed;
@@ -8893,15 +8894,17 @@ h1, h2, h3, h4, h5,
     display: inline-block; }
 
 .ftco-services .nav-link-wrap {
-  background: #31de79; }
+  background: #246469;
+  }
   @media (min-width: 768px) {
     .ftco-services .nav-link-wrap {
       margin-bottom: -60px;
       z-index: 1; } }
   @media (max-width: 767.98px) {
     .ftco-services .nav-link-wrap {
-      background: #31de79;
-      margin-top: 30px; } }
+      background: #246469;
+      margin-top: 30px;
+      } }
 
 .ftco-services .nav-pills p {
   margin-bottom: 0; }
