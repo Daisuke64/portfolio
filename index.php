@@ -44,7 +44,7 @@
 	          <li class="nav-item"><a href="#blog-section" class="nav-link"><span>News</span></a></li>
 						<li class="nav-item"><a href="#contact-section" class="nav-link"><span>Contact</span></a></li>
 						<li class="nav-item"><a href="#" class="nav-link"><span><i class="fas fa-shopping-cart"></i>Cart</span></a></li>
-						<li class="nav-item"><a href="#" class="nav-link"><span>Logout</span></a></li>
+						<li class="nav-item"><a href="logout.php" class="nav-link"><span>Logout</span></a></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -110,7 +110,7 @@
 
               <a class="nav-link px-4" id="v-pills-4-tab" data-toggle="pill" href="#v-pills-4" role="tab" aria-controls="v-pills-4" aria-selected="false"><span class="mr-3 fas fa-chart-line"></span> Hit Chart</a>
 
-              <a class="nav-link px-4" id="v-pills-5-tab" data-toggle="pill" href="#v-pills-5" role="tab" aria-controls="v-pills-5" aria-selected="false"><span class="mr-3 fa fa-cart-arrow-down"></span> Big Sale★</a>
+              <a class="nav-link px-4" id="v-pills-5-tab" data-toggle="pill" href="#v-pills-5" role="tab" aria-controls="v-pills-5" aria-selected="false"><span class="mr-3 fa fa-cart-arrow-down"></span> Big Sales★</a>
 
               <a class="nav-link px-4" id="v-pills-6-tab" data-toggle="pill" href="#v-pills-6" role="tab" aria-controls="v-pills-6" aria-selected="false"><span class="mr-3 fas fa-search"></span> Search</a>
             </div>
@@ -320,7 +320,7 @@
     			<div class="col-md-6 col-lg-7 pl-lg-5 py-5">
     				<div class="py-md-5">
 	    				<div class="row justify-content-start pb-3">
-			          <div class="col-md-12 heading-section ftco-animate">
+			          <div class="col-md-12 heading-section ftco-animate text-white">
 			          	<span class="subheading">Welcome to BIG★HELP CD SHOP</span>
 			            <h2 class="mb-4" style="font-size: 34px; text-transform: capitalize;">We Are The Super Music Agency</h2>
 			            <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine.</p>
@@ -348,7 +348,7 @@
           <div class="col-md-6 heading-section text-center ftco-animate">
           	<span class="subheading">About Us</span>
             <h2 class="mb-4">Our Staff</h2>
-            <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+            <p class="text-white">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
           </div>
         </div>
         <div class="row">
@@ -538,7 +538,7 @@
           <div class="col-md-7 heading-section text-center ftco-animate">
             <span class="subheading">Contact</span>
             <h2 class="mb-4">Contact Us</h2>
-            <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+            <p class="text-white">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
           </div>
         </div>
         <div class="row d-flex contact-info mb-5">
@@ -633,6 +633,7 @@
 								<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Suggestions</a></li>
 								<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>News</a></li>
 								<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Contact</a></li>
+								<li><a href="#"><span class="icon-long-arrow-right mr-2"></span><i class="fas fa-shopping-cart"></i>Cart</a></li>
 								<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Logout</a></li>
               </ul>
             </div>
@@ -641,11 +642,13 @@
              <div class="ftco-footer-widget mb-4">
               <h2 class="ftco-heading-2">Services</h2>
               <ul class="list-unstyled">
-                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Web Design</a></li>
-                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Web Development</a></li>
-                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Business Strategy</a></li>
-                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Data Analysis</a></li>
-                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Graphic Design</a></li>
+                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>New Releases</a></li>
+                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Singles</a></li>
+                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Albums</a></li>
+                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Artists</a></li>
+								<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Hit Chart</a></li>
+								<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Big Sales★</a></li>
+								<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Search</a></li>
               </ul>
             </div>
           </div>
