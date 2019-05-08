@@ -38,6 +38,7 @@ session_start();
 						<div class="content">
 							<div class="header">
 								<div class="logo text-center"></div>
+								<p class="lead">Welcome to BIG★HELP CD SHOP</p>
 								<p class="lead">Login to your account</p>
 							</div>
 							<form class="form-auth-small" action="index.php">
@@ -65,7 +66,8 @@ session_start();
 					<div class="right">
 						<div class="overlay"></div>
 						<div class="content text">
-							<h1 class="heading">-- BIG★HELP CD SHOP ---</h1>
+							<h1 class="heading"></h1>
+							<p></p>
 						</div>
 					</div>
 					<div class="clearfix"></div>

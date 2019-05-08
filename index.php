@@ -62,7 +62,7 @@
 		          <div class="one-forth d-flex js-fullheight align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
 		          	<div class="text">
 		          		<span class="subheading">Welcome to BIG★HELP CD SHOP</span>
-			            <h1 class="mb-4 mt-3">Life is <span>a song</span>, love is <span>the music</span>.</h1>
+			            <h1 class="mb-4 mt-3">Let <span>music</span> flow in <span>your heart</span> and enrich <span>your soul</span>.</h1>
 			            <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
 			            
 			            <p><a href="#" class="btn btn-primary px-5 py-3 mt-3">Learn More</a></p>
@@ -98,11 +98,11 @@
     <section class="ftco-section ftco-no-pb ftco-no-pt ftco-services bg-light" id="services-section">
       <div class="container">
         <div class="row no-gutters">
-          <div class="col-md-4 ftco-animate py-5 nav-link-wrap">
+          <div class="col-md-4 ftco-animate py-1 nav-link-wrap">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-              <a class="nav-link px-4 active" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true"><span class="mr-3 fas fa-dove"></span> New Release</a>
+              <a class="nav-link px-4 active" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true"><span class="mr-3 fas fa-dove"></span> New Releases</a>
 
-              <a class="nav-link px-4" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2" aria-selected="false"><span class="mr-3 fas fa-music"></span> Singles</a>
+              <a class="nav-link px-4" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2" aria-selected="false"><span class="mr-3 fas fa-music"></span> Songs</a>
 
               <a class="nav-link px-4" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab" aria-controls="v-pills-3" aria-selected="false"><span class="mr-3 fas fa-compact-disc"></span> Albums</a>
 
@@ -115,16 +115,42 @@
               <a class="nav-link px-4" id="v-pills-6-tab" data-toggle="pill" href="#v-pills-6" role="tab" aria-controls="v-pills-6" aria-selected="false"><span class="mr-3 fas fa-search"></span> Search</a>
             </div>
           </div>
-          <div class="col-md-8 ftco-animate p-4 p-md-5 d-flex align-items-center">
+          <div class="col-md-8 ftco-animate d-flex align-items-center">
             
             <div class="tab-content pl-md-5" id="v-pills-tabContent">
 
-              <div class="tab-pane fade show active py-5" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
-                <span class="icon mb-3 d-block flaticon-ideas"></span>
-                <h2 class="mb-4">Business Strategy</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
-                <p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
-                <p><a href="#" class="btn btn-primary px-4 py-3">Learn More</a></p>
+              <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
+										<h4> New Releases</h4>										
+										<table class="table table-striped table-bordered">
+											<thead>
+												<tr class="table-success">
+													<th>Cover</th>
+													<th>Title</th>
+													<th>Artist</th>
+													<th>Label</th>
+													<th>Genre</th>
+													<th>Release Date</th>
+													<th>Format</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>John</td>
+													<td>Doe</td>
+													<td>john@example.com</td>
+												</tr>
+												<tr>
+													<td>Mary</td>
+													<td>Moe</td>
+													<td>mary@example.com</td>
+												</tr>
+												<tr>
+													<td>July</td>
+													<td>Dooley</td>
+													<td>july@example.com</td>
+												</tr>
+											</tbody>
+										</table>
               </div>
 
               <div class="tab-pane fade py-5" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab">
@@ -643,7 +669,7 @@
               <h2 class="ftco-heading-2">Services</h2>
               <ul class="list-unstyled">
                 <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>New Releases</a></li>
-                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Singles</a></li>
+                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Songs</a></li>
                 <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Albums</a></li>
                 <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Artists</a></li>
 								<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Hit Chart</a></li>
