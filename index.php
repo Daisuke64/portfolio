@@ -96,9 +96,9 @@
 		
 
     <section class="ftco-section ftco-no-pb ftco-no-pt ftco-services bg-light" id="services-section">
-      <div class="container">
+      <div class="container-flued">
         <div class="row no-gutters">
-          <div class="col-md-4 ftco-animate py-1 nav-link-wrap">
+          <div class="col-md-2 ftco-animate py-1 nav-link-wrap">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
               <a class="nav-link px-4 active" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true"><span class="mr-3 fas fa-dove"></span> New Releases</a>
 
@@ -115,90 +115,36 @@
               <a class="nav-link px-4" id="v-pills-6-tab" data-toggle="pill" href="#v-pills-6" role="tab" aria-controls="v-pills-6" aria-selected="false"><span class="mr-3 fas fa-search"></span> Search</a>
             </div>
           </div>
-          <div class="col-md-8 ftco-animate d-flex align-items-center">
+          <div class="col-md-10 ftco-animate d-flex align-items-center table table-responsive">
             
             <div class="tab-content pl-md-5" id="v-pills-tabContent">
 
-              <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
-										<h4> New Releases</h4>										
-										<table class="table table-striped table-bordered">
-											<thead>
-												<tr class="table-success">
-													<th>Cover</th>
-													<th>Title</th>
-													<th>Artist</th>
-													<th>Label</th>
-													<th>Genre</th>
-													<th>Release Date</th>
-													<th>Format</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>John</td>
-													<td>Doe</td>
-													<td>john@example.com</td>
-												</tr>
-												<tr>
-													<td>Mary</td>
-													<td>Moe</td>
-													<td>mary@example.com</td>
-												</tr>
-												<tr>
-													<td>July</td>
-													<td>Dooley</td>
-													<td>july@example.com</td>
-												</tr>
-											</tbody>
-										</table>
+              <div class="tab-pane fade show active p-3" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
+								<?php require_once 'tables/new.php'; ?>
               </div>
 
-              <div class="tab-pane fade py-5" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab">
-                <span class="icon mb-3 d-block flaticon-flasks"></span>
-                <h2 class="mb-4">Research</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
-                <p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
-                <p><a href="#" class="btn btn-primary px-4 py-3">Learn More</a></p>
+              <div class="tab-pane fade py-5 p-3" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab">
+								<?php require_once 'tables/songs.php'; ?>
               </div>
 
-              <div class="tab-pane fade py-5" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab">
-                <span class="icon mb-3 d-block flaticon-analysis"></span>
-                <h2 class="mb-4">Data Analysis</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
-                <p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
-                <p><a href="#" class="btn btn-primary px-4 py-3">Learn More</a></p>
+              <div class="tab-pane fade py-5 p-3" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab">
+								<?php require_once 'tables/albums.php'; ?>
               </div>
 
-              <div class="tab-pane fade py-5" id="v-pills-4" role="tabpanel" aria-labelledby="v-pills-4-tab">
-                <span class="icon mb-3 d-block flaticon-web-design"></span>
-                <h2 class="mb-4">UI Design</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
-                <p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
-                <p><a href="#" class="btn btn-primary px-4 py-3">Learn More</a></p>
+              <div class="tab-pane fade py-5 p-3" id="v-pills-4" role="tabpanel" aria-labelledby="v-pills-4-tab">
+								<?php require_once 'tables/artists.php'; ?>
               </div>
 
-              <div class="tab-pane fade py-5" id="v-pills-4" role="tabpanel" aria-labelledby="v-pills-4-tab">
-                <span class="icon mb-3 d-block flaticon-ux-design"></span>
-                <h2 class="mb-4">Ux Design</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
-                <p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
-                <p><a href="#" class="btn btn-primary px-4 py-3">Learn More</a></p>
+              <div class="tab-pane fade py-5 p-3" id="v-pills-4" role="tabpanel" aria-labelledby="v-pills-4-tab">
+								<?php require_once 'tables/hitchart.php'; ?>
               </div>
 
-              <div class="tab-pane fade py-5" id="v-pills-5" role="tabpanel" aria-labelledby="v-pills-5-tab">
-                <span class="icon mb-3 d-block flaticon-innovation"></span>
-                <h2 class="mb-4">Technology</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
-                <p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
-                <p><a href="#" class="btn btn-primary px-4 py-3">Learn More</a></p>
+              <div class="tab-pane fade py-5 p-3" id="v-pills-5" role="tabpanel" aria-labelledby="v-pills-5-tab">
+								<?php require_once 'tables/bigsales.php'; ?>
               </div>
 
-              <div class="tab-pane fade py-5" id="v-pills-6" role="tabpanel" aria-labelledby="v-pills-6-tab">
-                <span class="icon mb-3 d-block flaticon-idea"></span>
-                <h2 class="mb-4">Creative Solution</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
-                <p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
-                <p><a href="#" class="btn btn-primary px-4 py-3">Learn More</a></p>
+              <div class="tab-pane fade py-5 p-3" id="v-pills-6" role="tabpanel" aria-labelledby="v-pills-6-tab">
+								<?php require_once 'tables/search.php'; ?>
               </div>
             </div>
           </div>
