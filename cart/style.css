@@ -237,8 +237,8 @@ body {}
 	border:none;
 }
 .footer-copyright-area {
-    background: -webkit-linear-gradient(178deg, #e12503 0%, #85060c 100%);
-    background: linear-gradient(178deg, #e12503 0%, #85060c 100%);
+    background: -webkit-linear-gradient(178deg, #97f0fe 0%, #324b66 100%);
+    background: linear-gradient(178deg, #97f0fe 0%, #324b66 100%);
     padding: 20px 0px;
     text-align: center;
 }
@@ -1802,7 +1802,7 @@ ul.tab-custon-design li.active a, ul.tab-review-design li.active a{
 	padding:10px 15px;
 	line-height: 24px;
 	font-size:14px;
-	background:#e12503;
+	background: #4d80ae;
 }
 .product-cart-inner .wizard > .steps .disabled a, .product-cart-inner .wizard > .steps .disabled a:hover, .product-cart-inner .wizard > .steps .disabled a:active{
 	background: #fff;
@@ -1820,7 +1820,7 @@ ul.tab-custon-design li.active a, ul.tab-review-design li.active a{
     width: 35px;
 }
 .wizard > .actions a, .wizard > .actions a:hover, .wizard > .actions a:active {
-    background: #e12503;
+    background: #4d80ae;
 }
 .product-list-cart .product-status-wrap{
 	border: 0px solid rgba(0,0,0,.12);
@@ -1836,8 +1836,8 @@ ul.tab-custon-design li.active a, ul.tab-review-design li.active a{
 	width:100% !important;
 }
 .payment-details button, .product-confarmation button{
-	background: #e12503;
-	border-color:#e12503;
+	background: #4d80ae;
+	border-color: #77a8d5;
 }
 .product-confarmation {
     text-align: center;

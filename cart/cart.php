@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Product Cart | jeweler - Material Admin Template</title>
+    <title>Shopping Cart</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
@@ -62,8 +62,8 @@
 
     <style>
     #head {
-        background: -webkit-linear-gradient(178deg, #e12503 0%, #85060c 100%);
-        background: linear-gradient(178deg, #e12503 0%, #85060c 100%);
+        background: -webkit-linear-gradient(178deg, #97f0fe 0%, #324b66 100%);
+        background: linear-gradient(178deg, #97f0fe 0%, #324b66 100%);
         padding: 20px 0px;
         text-align: center;
     }
@@ -72,8 +72,8 @@
 
 <body>
         <div class="jumbotron text-center" id="head">
-                <h4>Bootstrap Tutorial</h4> 
-                <p>Bootstrap is the most popular HTML, CSS...</p> 
+                <h4>Shopping Cart</h4> 
+                <p>Thank you for your purchase!</p> 
         </div>
 
 
