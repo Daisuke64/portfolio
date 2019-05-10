@@ -43,7 +43,7 @@
 	          <li class="nav-item"><a href="#about-section" class="nav-link"><span>About</span></a></li>
 	          <li class="nav-item"><a href="#blog-section" class="nav-link"><span>News</span></a></li>
 						<li class="nav-item"><a href="#contact-section" class="nav-link"><span>Contact</span></a></li>
-						<li class="nav-item"><a href="cart/cart.php" class="nav-link"><span><i class="fas fa-shopping-cart"></i>Cart</span></a></li>
+						<li class="nav-item"><a href="forms/cart.php" class="nav-link"><span><i class="fas fa-shopping-cart"></i>Cart</span></a></li>
 						<li class="nav-item"><a href="logout.php" class="nav-link"><span>Logout</span></a></li>
 	        </ul>
 	      </div>

@@ -58,7 +58,7 @@ session_start();
 								</div>
 								<button type="submit" class="btn btn-primary btn-lg btn-block">LOGIN</button>
 								<div class="bottom">
-									<span class="helper-text"><i class="fas fa-user-circle"></i> <a href="#">Creat New Account</a></span>
+									<span class="helper-text"><i class="fas fa-user-circle"></i><a href="forms/useradd.php">Creat New Account</a></span>
 								</div>
 							</form>
 						</div>
