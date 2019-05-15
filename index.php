@@ -1,3 +1,13 @@
+<?php
+    session_start();
+    if($_SESSION['logstat'] !="Active"){
+        header('Location: logout.php');
+		}
+
+		require 'functions/portDAO.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -108,11 +118,13 @@
 
               <a class="nav-link px-4" id="v-pills-4-tab" data-toggle="pill" href="#v-pills-4" role="tab" aria-controls="v-pills-4" aria-selected="false"><span class="mr-3 fas fa-guitar"></span> Artists</a>
 
-              <a class="nav-link px-4" id="v-pills-4-tab" data-toggle="pill" href="#v-pills-4" role="tab" aria-controls="v-pills-4" aria-selected="false"><span class="mr-3 fas fa-chart-line"></span> Hit Chart</a>
+              <a class="nav-link px-4" id="v-pills-5-tab" data-toggle="pill" href="#v-pills-5" role="tab" aria-controls="v-pills-5" aria-selected="false"><span class="mr-3 fas fa-chart-line"></span> Hit Chart</a>
 
-              <a class="nav-link px-4" id="v-pills-5-tab" data-toggle="pill" href="#v-pills-5" role="tab" aria-controls="v-pills-5" aria-selected="false"><span class="mr-3 fa fa-cart-arrow-down"></span> Big Sales★</a>
+              <a class="nav-link px-4" id="v-pills-6-tab" data-toggle="pill" href="#v-pills-6" role="tab" aria-controls="v-pills-6" aria-selected="false"><span class="mr-3 fa fa-cart-arrow-down"></span> Big Sales★</a>
 
-              <a class="nav-link px-4" id="v-pills-6-tab" data-toggle="pill" href="#v-pills-6" role="tab" aria-controls="v-pills-6" aria-selected="false"><span class="mr-3 fas fa-search"></span> Search</a>
+              <a class="nav-link px-4" id="v-pills-7-tab" data-toggle="pill" href="#v-pills-7" role="tab" aria-controls="v-pills-7" aria-selected="false"><span class="mr-3 fas fa-search"></span> Search</a>
+							
+
             </div>
           </div>
           <div class="col-md-10 ftco-animate d-flex align-items-center table table-responsive">
@@ -135,15 +147,15 @@
 								<?php require_once 'tables/artists.php'; ?>
               </div>
 
-              <div class="tab-pane fade py-5 p-3" id="v-pills-4" role="tabpanel" aria-labelledby="v-pills-4-tab">
+              <div class="tab-pane fade py-5 p-3" id="v-pills-5" role="tabpanel" aria-labelledby="v-pills-5-tab">
 								<?php require_once 'tables/hitchart.php'; ?>
               </div>
 
-              <div class="tab-pane fade py-5 p-3" id="v-pills-5" role="tabpanel" aria-labelledby="v-pills-5-tab">
+              <div class="tab-pane fade py-5 p-3" id="v-pills-6" role="tabpanel" aria-labelledby="v-pills-6-tab">
 								<?php require_once 'tables/bigsales.php'; ?>
               </div>
 
-              <div class="tab-pane fade py-5 p-3" id="v-pills-6" role="tabpanel" aria-labelledby="v-pills-6-tab">
+              <div class="tab-pane fade py-5 p-3" id="v-pills-7" role="tabpanel" aria-labelledby="v-pills-7-tab">
 								<?php require_once 'tables/search.php'; ?>
               </div>
             </div>

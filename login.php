@@ -1,6 +1,28 @@
 <?php
-session_start();
+    session_start(); 
+	require 'functions/portDAO.php';
+	$portdao = new PortAccessObject;
+    if(isset($_POST['login'])){
 
+        $user_email = $_POST['user_email'];
+        $user_password = md5($_POST['user_password']);
+        $credentials = $portdao->login($user_email, $user_password);
+
+		if(!empty($credentials)){
+
+				$_SESSION['id'] = $credentials['user_id'];
+				$_SESSION['name'] = $credentials['user_fname'];
+				$_SESSION['logstat'] = "Active";
+
+				if($credentials['user_type'] == "A"){
+					header('Location: admin/index.php');
+			    }elseif($credentials['user_type'] == "U"){
+					header('Location: index.php');
+				}else{
+					echo "User not found!";
+				}
+        }
+    }
 ?>
 
 <!doctype html>
@@ -40,15 +62,18 @@ session_start();
 								<div class="logo text-center"></div>
 								<p class="lead">Welcome to BIG★HELP CD SHOP</p>
 								<p class="lead">Login to your account</p>
+								<?php if(!empty($_GET['massage'])){
+									echo "<h1>".$_GET['massage']."</1>";
+								} ?>
 							</div>
-							<form class="form-auth-small" action="index.php">
+							<form class="form-auth-small" action="" method="post">
 								<div class="form-group">
 									<label for="signin-email" class="control-label sr-only">Email</label>
-									<input type="email" class="form-control" id="signin-email" value="samuel.gold@domain.com" placeholder="Email">
+									<input type="email" class="form-control" id="signin-email" value="" name="user_email" placeholder="Email">
 								</div>
 								<div class="form-group">
 									<label for="signin-password" class="control-label sr-only">Password</label>
-									<input type="password" class="form-control" id="signin-password" value="thisisthepassword" placeholder="Password">
+									<input type="password" class="form-control" id="signin-password" value="" name="user_password" placeholder="Password">
 								</div>
 								<div class="form-group clearfix">
 									<label class="fancy-checkbox element-left">
@@ -56,7 +81,7 @@ session_start();
 										<span>Remember me</span>
 									</label>
 								</div>
-								<button type="submit" class="btn btn-primary btn-lg btn-block">LOGIN</button>
+								<button type="submit" class="btn btn-primary btn-lg btn-block" name="login">LOGIN</button>
 								<div class="bottom">
 									<span class="helper-text"><i class="fas fa-user-circle"></i><a href="forms/useradd.php">Creat New Account</a></span>
 								</div>

@@ -1,3 +1,22 @@
+<?php
+      require '../functions/portDAO.php';
+      $portdao = new PortAccessObject;
+
+      if(isset($_POST['add'])){
+
+        $user_fname = $_POST['user_fname'];
+        $user_lname = $_POST['user_lname'];
+        $user_address = $_POST['user_address'];
+        $user_phone = $_POST['user_phone'];
+        $user_email = $_POST['user_email'];
+        $user_password = md5($_POST['user_password']);
+        $portdao->adduser($user_fname, $user_lname, $user_address, $user_phone, $user_email, $user_password);
+        $massage = "Your Restration Is Complete!";
+        header ('location: ../login.php?massage='.$massage);
+      }
+
+?>
+
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -73,39 +92,40 @@
 <body>
         <div class="jumbotron text-center" id="head">
                 <h4>Create New Account</h4> 
-                <p>Welocome to Music World</p> 
+                <p>You're Welcom To Join Us</p> 
+                <br>
         </div>
 
         <div class="container py-3 my-5">
           <form action="" method="post">
                                   
                   <div class="form-group">
-                      <label for="card-number" class="form-label">First name *</label>
-                      <input id="name-2" name="name" type="text" class="form-control">
+                      <label for="user_fname" class="form-label">First name *</label>
+                      <input id="user_fname" name="user_fname" type="text" class="form-control">
                   </div>
                   <div class="form-group">
-                      <label for="card-number" class="form-label">Last name *</label>
-                      <input id="surname-2" name="surname" type="text" class="form-control">
+                      <label for="user_lname" class="form-label">Last name *</label>
+                      <input id="user_lname" name="user_lname" type="text" class="form-control">
                   </div>
                   <div class="form-group">
-                      <label for="address" class="form-label">Address *</label>
-                      <input id="address" name="address" type="text" class="form-control">
+                      <label for="user_address" class="form-label">Address *</label>
+                      <input id="user_address" name="user_address" type="text" class="form-control">
                   </div>
                   <div class="form-group">
-                      <label for="city" class="form-label">Phone *</label>
-                      <input id="city" name="city" type="text" class="form-control">
+                      <label for="user_phone" class="form-label">Phone *</label>
+                      <input id="user_phone" name="user_phone" type="text" class="form-control">
                   </div>
                   <div class="form-group">
-                      <label for="phone-2" class="form-label">Email *</label>
-                      <input id="phone-2" name="phone" type="text" class="form-control phone">
+                      <label for="user_email" class="form-label">Email *</label>
+                      <input id="user_email" name="user_email" type="text" class="form-control phone">
                   </div>
                   <div class="form-group">
-                      <label for="phone-2" class="form-label">Password *</label>
-                      <input id="phone-2" name="phone" type="password" class="form-control phone">
+                      <label for="user_password" class="form-label">Password *</label>
+                      <input id="user_password" name="user_password" type="password" class="form-control phone">
                   </div>
                   <div class="text-center">
                   <button type="reset" class="btn btn-danger">Reset</button>
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary" name="add">Submit</button>
                   </div>
 
                                
