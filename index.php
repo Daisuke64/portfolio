@@ -33,7 +33,13 @@
 		<link rel="stylesheet" href="css/style.css">
 		
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-
+		
+		<style>
+		#tables{
+			width: 1000px;
+		}
+		</style>
+		
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 	  
@@ -129,9 +135,9 @@
           </div>
           <div class="col-md-10 ftco-animate d-flex align-items-center table table-responsive">
             
-            <div class="tab-content pl-md-5" id="v-pills-tabContent">
+            <div class="tab-content pl-md-5" id="v-pills-tabContent" style="height: 800px;">
 
-              <div class="tab-pane fade show active p-3" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
+              <div class="tab-pane fade show active py-5 p-3" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
 								<?php require_once 'tables/new.php'; ?>
               </div>
 

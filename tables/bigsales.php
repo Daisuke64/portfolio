@@ -1,16 +1,16 @@
 <?php
 
 $portdao = new PortAccessObject;
-$songlist = $portdao->retrieveAllSalesSong();
-$albumlist = $portdao->retrieveAllSalesAlbum();
+$saleSonglist = $portdao->retrieveAllSalesSong();
+$saleAlbumlist = $portdao->retrieveAllSalesAlbum();
 
 ?>
 
-<h4> New Releases</h4>
+<h4> Big Sales★</h4>
 
 <table class="table table-striped table-bordered table-sm text-center">
 
-  <div class="p-3 bg-primary"><h4></h4></div>
+  <div class="p-2 bg-primary"><h4></h4></div>
 
     <thead>
         <tr class="table-success">
@@ -28,13 +28,13 @@ $albumlist = $portdao->retrieveAllSalesAlbum();
     </thead>
     <tbody>
     <?php
-        $previous = null;
-        foreach($songlist as $key=>$value){
+        $previousS = null;
+        foreach($saleSonglist as $key=>$value){
             $az = $value['song_title'];
             echo "<tr>";
-            if($previous != $az[0]){
+            if($previousS != $az[0]){
                 echo "<td id='s_".$az[0]."'>".$az[0]."</td>";
-                $previous = $az[0];
+                $previousS = $az[0];
             }else{
                 echo "<td></td>";
             }
@@ -61,9 +61,9 @@ $albumlist = $portdao->retrieveAllSalesAlbum();
     </tbody>
 
 
-    <table class="table table-striped table-bordered table-sm text-center">
+    <table class="table table-striped table-bordered table-sm text-center" id="tables">
 
-    <div class="p-3 bg-primary"><h4></h4></div>
+    <div class="p-2 bg-primary"><h4></h4></div>
 
     <thead>
         <tr class="table-success">
@@ -81,13 +81,13 @@ $albumlist = $portdao->retrieveAllSalesAlbum();
     </thead>
     <tbody>
     <?php
-        $previous = null;
-        foreach($albumlist as $key=>$value){
+        $previousA = null;
+        foreach($saleAlbumlist as $key=>$value){
             $az = $value['album_title'];
             echo "<tr>";
-            if($previous != $az[0]){
+            if($previousA != $az[0]){
                 echo "<td id='a_".$az[0]."'>".$az[0]."</td>";
-                $previous = $az[0];
+                $previousA = $az[0];
             }else{
                 echo "<td></td>";
             }

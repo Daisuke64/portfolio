@@ -1,12 +1,12 @@
 <?php
 
 $portdao = new PortAccessObject;
-$songlist = $portdao->retrieveAllsong();
+$songslist = $portdao->retrieveAllsong();
 
 ?>
 
 <h4>Songs</h4>										
-<table class="table table-striped table-bordered table-sm text-center">
+<table class="table table-striped table-bordered table-sm text-center" id="tables">
     <thead>
         <tr class="table-success">
             <th>A-Z</th>
@@ -23,13 +23,13 @@ $songlist = $portdao->retrieveAllsong();
     </thead>
     <tbody>
         <?php
-        $previous = null;
-        foreach($songlist as $key=>$value){
+        $previousS = null;
+        foreach($songslist as $key=>$value){
                 $az = $value['song_title'];
                 echo "<tr>";
-                if($previous != $az[0]){
+                if($previousS != $az[0]){
                     echo "<td id='".$az[0]."'>".$az[0]."</td>";
-                    $previous = $az[0];
+                    $previousS = $az[0];
                 }else{
                     echo "<td></td>";
                 }

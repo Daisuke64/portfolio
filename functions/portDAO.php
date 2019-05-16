@@ -154,6 +154,58 @@
             }
             return $rows;
         }
+///////////////////////////////
 
-        
+
+        public function retrieveSearchSong($search){
+            $sql = "SELECT * FROM songs
+            JOIN artists ON songs.artist_id = artists.artist_id 
+            JOIN albums ON songs.song_album_id = albums.album_id
+            JOIN sales ON songs.song_sale_id = sales.sale_id
+            WHERE song_title LIKE '%$search%' OR song_label LIKE '%$search%' OR album_title LIKE '%$search%'
+            OR album_contents LIKE '%$search%' OR album_label LIKE '%$search%' OR artist_name LIKE '%$search%' 
+            OR artist_genre LIKE '%$search%' OR artist_country LIKE '%$search%'        
+            ORDER BY song_date DESC";
+            $result = $this->conn->query($sql);
+            $rows = array();
+
+            while($row=$result->fetch_assoc()){
+                $rows[] = $row;
+            }
+            return $rows;
+        }
+
+        public function retrieveSearchAlbum($search){
+            $sql = "SELECT * FROM albums 
+            JOIN artists ON albums.artist_id = artists.artist_id
+            JOIN sales ON albums.album_sale_id = sales.sale_id
+            WHERE album_title LIKE '%$search%' OR album_contents LIKE '%$search%' OR album_label LIKE '%$search%' 
+            OR artist_name LIKE '%$search%' OR artist_genre LIKE '%$search%' OR artist_country LIKE '%$search%'     
+            ORDER BY album_date DESC";
+            $result = $this->conn->query($sql);
+            $rows = array();
+
+            while($row=$result->fetch_assoc()){
+                $rows[] = $row;
+            }
+            return $rows;
+        }
+
+        // public function retrieveAllSearch($search){
+        //     $sql = "SELECT *  , GROUP_CONCAT(DISTINCT song_title ORDER BY song_date ASC  SEPARATOR '<br/>') AS song_titles, GROUP_CONCAT(album_title ORDER BY album_date ASC  SEPARATOR '<br/>') AS album_titles  FROM artists JOIN songs ON artists.artist_id = songs.artist_id JOIN albums ON albums.artist_id = artists.artist_id 
+        //     WHERE song_title LIKE '%$search%' OR song_label LIKE '%$search%' OR album_title LIKE '%$search%'
+        //     OR album_contents LIKE '%$search%' OR album_label LIKE '%$search%' OR artist_name LIKE '%$search%' 
+        //     OR artist_genre LIKE '%$search%' OR artist_country LIKE '%$search%' 
+        //     GROUP BY artist_name ORDER BY artist_name ASC";
+            
+        //     $result = $this->conn->query($sql);
+        //     $rows = array();
+
+        //     while($row=$result->fetch_assoc()){
+        //         $rows[] = $row;
+        //     }
+        //     return $rows;
+        // }
+
+               
     }

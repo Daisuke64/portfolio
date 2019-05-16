@@ -1,12 +1,12 @@
 <?php
 
 $portdao = new PortAccessObject;
-$albumlist = $portdao->retrieveAllAlbum();
+$albumslist = $portdao->retrieveAllAlbum();
 
 ?>
 
 <h4>Albums</h4>										
-<table class="table table-striped table-bordered table-sm text-center">
+<table class="table table-striped table-bordered table-sm text-center" id="tables">
     <thead>
         <tr class="table-success">
             <th>A-Z</th>
@@ -24,7 +24,7 @@ $albumlist = $portdao->retrieveAllAlbum();
     <tbody>
     <?php
         $previous = null;
-        foreach($albumlist as $key=>$value){
+        foreach($albumslist as $key=>$value){
                 $az = $value['album_title'];
                 echo "<tr>";
                 if($previous != $az[0]){

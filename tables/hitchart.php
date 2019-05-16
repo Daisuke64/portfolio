@@ -1,16 +1,16 @@
 <?php
 
 $portdao = new PortAccessObject;
-$songlist = $portdao->retrieveRankingS();
-$albumlist = $portdao->retrieveRankingA();
+$rankSonglist = $portdao->retrieveRankingS();
+$rankAlbumlist = $portdao->retrieveRankingA();
 
 ?>
 
-<h4> New Releases</h4>
+<h4> Hit Chart</h4>
 
-<table class="table table-striped table-bordered table-sm text-center">
+<table class="table table-striped table-bordered table-sm text-center" id="tables">
 
-  <div class="p-3 bg-primary"><h4></h4></div>
+  <div class="p-2 bg-primary"><h4></h4></div>
 
     <thead>
         <tr class="table-success">
@@ -29,7 +29,7 @@ $albumlist = $portdao->retrieveRankingA();
     <tbody>
     <?php
         $i = 1;
-        foreach($songlist as $key=>$value){
+        foreach($rankSonglist as $key=>$value){
             if($i >= 50){
                 break;
             }
@@ -61,7 +61,7 @@ $albumlist = $portdao->retrieveRankingA();
 
     <table class="table table-striped table-bordered table-sm text-center">
 
-    <div class="p-3 bg-primary"><h4></h4></div>
+    <div class="p-2 bg-primary"><h4></h4></div>
 
     <thead>
         <tr class="table-success">
@@ -80,7 +80,7 @@ $albumlist = $portdao->retrieveRankingA();
     <tbody>
     <?php
         $i = 1;
-        foreach($albumlist as $key=>$value){
+        foreach($rankAlbumlist as $key=>$value){
             if($i >= 50){
                 break;
             }
