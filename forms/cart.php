@@ -1,3 +1,60 @@
+<?php
+
+    session_start();
+    require '../functions/portDAO.php';
+    $portdao = new PortAccessObject;
+    $song_id = null;
+    if(isset($_GET['id'])){
+        $song_id = $_GET['id'];
+    }
+    // $cartSongslist = $portdao->retrieveCartSong($song_id);
+    // $cartAlbumslist = $portdao->retrieveCartSong($album_id);
+    // print_r($cartSongslist);
+    if(!empty($_GET["action"])){
+        switch($_GET["action"]){
+            case "add":
+                if(!empty($_POST["quantity"])){
+                    $cartSongslist = $portdao->retrieveCartSong($song_id);
+                    $cartArray = array($cartSongslist[0]["song_id"]=>array("song_title"=>$cartSongslist[0]["song_title"],"song_id"=>$cartSongslist[0]["song_id"],"song_image"=>$cartSongslist[0]["song_image"],"quantity"=>$_POST["quantity"],"song_album_id"=>$cartSongslist[0]["song_album_id"],
+                    "album_title"=>$cartSongslist[0]["album_title"],"artist_name"=>$cartSongslist[0]["artist_name"],"song_stock"=>$cartSongslist[0]["song_stock"],"song_format"=>$cartSongslist[0]["song_format"],"song_sale_id"=>$cartSongslist[0]["song_sale_id"],
+                    "song_price"=>$cartSongslist[0]["song_price"],"sale_percentage"=>$cartSongslist[0]["sale_percentage"]));
+                    if(!empty($_SESSION["cart_item"])){
+                        if(in_array($cartSongslist[0]["song_id"],array_keys($_SESSION["cart_item"]))){
+                            foreach($_SESSION["cart_item"] as $key => $value){
+                                if($cartSongslist[0]["song_id"] == $key ){
+                                    if(empty($_SESSION["cart_item"][$key]["quantity"])){
+                                        $_SESSION["cart_item"][$key]["quantity"] = 1;
+                                        
+                                    }
+                                    $_SESSION["cart_item"][$key]["quantity"] += $_POST["quantity"];
+                                }
+                            }
+                        }else{
+                            $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$cartArray);
+                        }
+                    }else{
+                        $_SESSION["cart_item"] = $cartArray;
+                    }
+                }
+            break;
+            case "remove":
+                if(!empty($_SESSION["cart_item"])){
+                    foreach($_SESSION["cart_item"] as $key => $value){
+                        if($_GET["id"] == $value["song_id"])
+                            unset($_SESSION["cart_item"][$key]);
+                        if(empty($_SESSION["cart_item"]))
+                            unset($_SESSION["cart_item"]);
+                    }
+                }
+            break;
+            case "empty":
+                unset($_SESSION["cart_item"]);
+            break;
+        }
+    }
+
+
+?>
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -88,90 +145,49 @@
                                     <h3 class="product-cart-dn">Shopping</h3>
                                     <div class="product-list-cart">
                                         <div class="product-status-wrap border-pdt-ct">
-                                            <table>
-                                                <tr>
-                                                    <th>Image</th>
-                                                    <th>Product Title</th>
-                                                    <th>Quality</th>
-                                                    <th>Price</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                                <tr>
-                                                    <td><img src="img/product/1.jpg" alt="" /></td>
-                                                    <td>
-                                                        <h3>Jewelery Title 1</h3>
-                                                        <p>Lorem ipsum dolor sit consec te imperdiet iaculis ipsum.</p>
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control" value="2">
-                                                    </td>
-                                                    <td>$18</td>
-                                                    <td>
-                                                        <button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                                        <button data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><img src="img/product/2.jpg" alt="" /></td>
-                                                    <td>
-                                                        <h3>Jewelery Title 2</h3>
-                                                        <p>Lorem ipsum dolor sit consec te imperdiet iaculis ipsum.</p>
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control" value="1">
-                                                    </td>
-                                                    <td>$17</td>
-                                                    <td>
-                                                        <button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                                        <button data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><img src="img/product/3.jpg" alt="" /></td>
-                                                    <td>
-                                                        <h3>Jewelery Title 3</h3>
-                                                        <p>Lorem ipsum dolor sit consec te imperdiet iaculis ipsum.</p>
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control" value="3">
-                                                    </td>
-                                                    <td>$15</td>
-                                                    <td>
-                                                        <button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                                        <button data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><img src="img/product/2.jpg" alt="" /></td>
-                                                    <td>
-                                                        <h3>Jewelery Title 4</h3>
-                                                        <p>Lorem ipsum dolor sit consec te imperdiet iaculis ipsum.</p>
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control" value="2">
-                                                    </td>
-                                                    <td>$12</td>
-                                                    <td>
-                                                        <button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                                        <button data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><img src="img/product/1.jpg" alt="" /></td>
-                                                    <td>
-                                                        <h3>Jewelery Title 5</h3>
-                                                        <p>Lorem ipsum dolor sit consec te imperdiet iaculis ipsum.</p>
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control" value="1">
-                                                    </td>
-                                                    <td>$18</td>
-                                                    <td>
-                                                        <button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                                        <button data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                                    </td>
-                                                </tr>
+
+                                            <table class="table table-striped table-bordered table-sm text-center" id="tables">
+                                                <thead>
+                                                    <tr class="table-success">
+                                                        <th>Image</th>
+                                                        <th>Title</th>
+                                                        <th>Artist</th>
+                                                        <th>Quantity</th>
+                                                        <th>Format</th>
+                                                        <th>Price</th>
+                                                        <th>Edit</th>
+                                                        <th>Delete</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    
+                                                    <?php
+                                                    if(isset($_SESSION['cart_item'])){
+                                                        foreach($_SESSION['cart_item'] as $key=>$value){
+                                                                echo "<td><img src='../".$value['song_image']."' alt='".$value['song_title']."' width='50' height='50'></td>";
+                                                                if(!empty($value['song_album_id'])){
+                                                                    echo "<td>".$value['song_title']."<br>(".$value['album_title'].")</td>";
+                                                                }else{
+                                                                    echo "<td>".$value['song_title']."</td>";
+                                                                }
+                                                                echo "<td>".$value['artist_name']."</td>";
+                                                                echo "<td><form action='cart.php' method='post'><input type='number' class='' name='quantity' min=0 max='".$value["song_stock"]."' value='".$value['quantity']."'></td>";
+                                                                echo "<td>".$value['song_format']."</td>";
+                                                                if($value['song_sale_id'] != 99){
+                                                                    echo "<td>".(number_format($value['song_price'] * $value['sale_percentage'],2))." ←".$value['song_price']."<br>On Sale</td>";
+                                                                }else{
+                                                                    echo "<td>".$value['song_price']."</td>";
+                                                                }
+                                                                echo "<td><button type='submit' data-toggle='tooltip' title='Edit' class='pd-setting-ed'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button></form></td>";
+                                                                echo "<td><a href='cart.php?action=remove&id=".$value["song_id"]."' role='button' class='btn btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i></a></td>";
+                                                                echo "</tr>";
+                                                        }
+                                                    }
+                                                    ?>
+                                                    </form>
+                                                </tbody>    
                                             </table>
+
                                         </div>
                                     </div>
                                 </section>

@@ -38,6 +38,8 @@
 		#tables{
 			width: 1000px;
 		}
+
+		
 		</style>
 		
   </head>
@@ -133,7 +135,7 @@
 
             </div>
           </div>
-          <div class="col-md-10 ftco-animate d-flex align-items-center table table-responsive">
+          <div class="col-md-10 ftco-animate d-flex align-items-center table table-responsive" style="font-size: small; font-weight: bold;">
             
             <div class="tab-content pl-md-5" id="v-pills-tabContent" style="height: 800px;">
 

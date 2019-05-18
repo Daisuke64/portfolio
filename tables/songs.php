@@ -18,13 +18,16 @@ $songslist = $portdao->retrieveAllsong();
             <th>Price</th>
             <th>Format</th>
             <th>Detail</th>
+            <th>quantity</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
+
         <?php
         $previousS = null;
         foreach($songslist as $key=>$value){
+                echo "<form action='forms/cart.php?action=add&id=".$value['song_id']."' method='post'>";
                 $az = $value['song_title'];
                 echo "<tr>";
                 if($previousS != $az[0]){
@@ -33,7 +36,7 @@ $songslist = $portdao->retrieveAllsong();
                 }else{
                     echo "<td></td>";
                 }
-                echo "<td><img src='".$value['song_image']."' alt='".$value['song_title']."' width='50' height='50'></td>";
+                echo "<td><img src='".$value['song_image']."' alt='".$value['song_title']."' width='60' height='60'></td>";
                 if(!empty($value['song_album_id'])){
                     echo "<td>".$value['song_title']."<br>(".$value['album_title'].")</td>";
                 }else{
@@ -43,14 +46,16 @@ $songslist = $portdao->retrieveAllsong();
                 echo "<td>".$value['artist_genre']."</td>";
                 echo "<td>".date('M d, Y', strtotime($value['song_date']))."</td>";
                 if($value['song_sale_id'] != 99){
-                    echo "<td>".(number_format($value['song_price'] * $value['sale_percentage'],2))." ←".$value['song_price']."<br>On Sale</td>";
+                    echo "<td>".(number_format($value['song_price'] * $value['sale_percentage'],2))." ←".$value['song_price']."<br><font color='red'>On Sale</font></td>";
                 }else{
                     echo "<td>".$value['song_price']."</td>";
                 }
                 echo "<td>".$value['song_format']."</td>";
                 echo "<td><a href='' role='button' class='btn'><i class='fas fa-angle-double-right'></i></a></td>";
-                echo "<td><a href='' role='button' class='btn btn-info'><i class='fas fa-plus'></i></a></td>";
+                echo "<td><input type='number' name='quantity' style='width: 50px;'></td>";
+                echo "<td><input type='submit' value='Cart' style='width: 80px;' class='btn btn-secondary'></td>";
                 echo "</tr>";
+                echo "</form>";
         }
         ?>
     </tbody>    

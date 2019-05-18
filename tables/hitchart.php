@@ -65,7 +65,7 @@ $rankAlbumlist = $portdao->retrieveRankingA();
 
     <thead>
         <tr class="table-success">
-            <th>A-Z</th>
+            <th>Rank</th>
             <th>Cover</th>
             <th>Title</th>
             <th>Artist</th>

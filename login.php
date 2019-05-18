@@ -1,5 +1,5 @@
 <?php
-    session_start(); 
+  session_start(); 
 	require 'functions/portDAO.php';
 	$portdao = new PortAccessObject;
     if(isset($_POST['login'])){
@@ -16,12 +16,12 @@
 
 				if($credentials['user_type'] == "A"){
 					header('Location: admin/index.php');
-			    }elseif($credentials['user_type'] == "U"){
+			  }elseif($credentials['user_type'] == "U"){
 					header('Location: index.php');
 				}else{
 					echo "User not found!";
 				}
-        }
+		}
 	}
 
 ?>

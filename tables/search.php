@@ -16,7 +16,7 @@ if(isset($_POST['search'])){
 
 <form action="" method="post">
 <div class="input-group mb-3">
-  <input type="text" class="form-control" name="search" placeholder="Something clever..">
+  <input type="text" class="form-control" name="search" placeholder="Name (a song, album, artist and label)">
   <div class="input-group-append">
     <button class="btn btn-danger" type="reset">Reset</button> 
     <button class="btn btn-primary" type="submit">Search</button> 
