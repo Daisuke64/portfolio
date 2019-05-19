@@ -7,6 +7,9 @@ $artistslist = $portdao->retrieveAllArtist();
 
 <h4> Artists</h4>										
 <table class="table table-striped table-bordered table-sm text-center" id="tables">
+
+    <div class="p-2 bg-primary"><h4></h4></div>
+    
     <thead>
         <tr class="table-success">
             <th>A-Z</th>

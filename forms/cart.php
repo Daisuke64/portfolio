@@ -4,12 +4,15 @@
     require '../functions/portDAO.php';
     $portdao = new PortAccessObject;
     $song_id = null;
+    $album_id = null;
     if(isset($_GET['id'])){
         $song_id = $_GET['id'];
+        $album_id = $_GET['id'];
     }
-    // $cartSongslist = $portdao->retrieveCartSong($song_id);
-    // $cartAlbumslist = $portdao->retrieveCartSong($album_id);
-    // print_r($cartSongslist);
+
+    $userslist = $portdao->retrieveAllUser($_SESSION['id']);
+    print_r ($userslist);
+
     if(!empty($_GET["action"])){
         switch($_GET["action"]){
             case "add":
@@ -17,13 +20,13 @@
                     $cartSongslist = $portdao->retrieveCartSong($song_id);
                     $cartArray = array($cartSongslist[0]["song_id"]=>array("song_title"=>$cartSongslist[0]["song_title"],"song_id"=>$cartSongslist[0]["song_id"],"song_image"=>$cartSongslist[0]["song_image"],"quantity"=>$_POST["quantity"],"song_album_id"=>$cartSongslist[0]["song_album_id"],
                     "album_title"=>$cartSongslist[0]["album_title"],"artist_name"=>$cartSongslist[0]["artist_name"],"song_stock"=>$cartSongslist[0]["song_stock"],"song_format"=>$cartSongslist[0]["song_format"],"song_sale_id"=>$cartSongslist[0]["song_sale_id"],
-                    "song_price"=>$cartSongslist[0]["song_price"],"sale_percentage"=>$cartSongslist[0]["sale_percentage"]));
+                    "song_price"=>$cartSongslist[0]["song_price"],"sale_percentage"=>$cartSongslist[0]["sale_percentage"], "artist_genre"=>$cartSongslist[0]["artist_genre"]));
                     if(!empty($_SESSION["cart_item"])){
                         if(in_array($cartSongslist[0]["song_id"],array_keys($_SESSION["cart_item"]))){
                             foreach($_SESSION["cart_item"] as $key => $value){
                                 if($cartSongslist[0]["song_id"] == $key ){
                                     if(empty($_SESSION["cart_item"][$key]["quantity"])){
-                                        $_SESSION["cart_item"][$key]["quantity"] = 1;
+                                        $_SESSION["cart_item"][$key]["quantity"] = 0;
                                         
                                     }
                                     $_SESSION["cart_item"][$key]["quantity"] += $_POST["quantity"];
@@ -49,6 +52,49 @@
             break;
             case "empty":
                 unset($_SESSION["cart_item"]);
+            break;
+        }
+    }
+
+    if(!empty($_GET["action2"])){
+        switch($_GET["action2"]){
+            case "add":
+                if(!empty($_POST["quantity"])){
+                    $cartAlbumslist = $portdao->retrieveCartAlbum($album_id);
+                    $cartArray = array($cartAlbumslist[0]["album_id"]=>array("album_title"=>$cartAlbumslist[0]["album_title"],"album_id"=>$cartAlbumslist[0]["album_id"],"album_image"=>$cartAlbumslist[0]["album_image"],"quantity"=>$_POST["quantity"],"album_id"=>$cartAlbumslist[0]["album_id"],
+                    "artist_name"=>$cartAlbumslist[0]["artist_name"],"album_stock"=>$cartAlbumslist[0]["album_stock"],"album_format"=>$cartAlbumslist[0]["album_format"],"album_sale_id"=>$cartAlbumslist[0]["album_sale_id"],
+                    "album_price"=>$cartAlbumslist[0]["album_price"],"sale_percentage"=>$cartAlbumslist[0]["sale_percentage"], "artist_genre"=>$cartAlbumslist[0]["artist_genre"]));
+                    if(!empty($_SESSION["cart_item2"])){
+                        if(in_array($cartAlbumslist[0]["album_id"],array_keys($_SESSION["cart_item2"]))){
+                            foreach($_SESSION["cart_item2"] as $key => $value){
+                                if($cartAlbumslist[0]["album_id"] == $key ){
+                                    if(empty($_SESSION["cart_item2"][$key]["quantity"])){
+                                        $_SESSION["cart_item2"][$key]["quantity"] = 0;
+                                        
+                                    }
+                                    $_SESSION["cart_item2"][$key]["quantity"] += $_POST["quantity"];
+                                }
+                            }
+                        }else{
+                            $_SESSION["cart_item2"] = array_merge($_SESSION["cart_item2"],$cartArray);
+                        }
+                    }else{
+                        $_SESSION["cart_item2"] = $cartArray;
+                    }
+                }
+            break;
+            case "remove":
+                if(!empty($_SESSION["cart_item2"])){
+                    foreach($_SESSION["cart_item2"] as $key => $value){
+                        if($_GET["id"] == $value["album_id"])
+                            unset($_SESSION["cart_item2"][$key]);
+                        if(empty($_SESSION["cart_item2"]))
+                            unset($_SESSION["cart_item2"]);
+                    }
+                }
+            break;
+            case "empty":
+                unset($_SESSION["cart_item2"]);
             break;
         }
     }
@@ -133,6 +179,10 @@
                 <p>Thank you for your purchase!</p> 
         </div>
 
+        <div class="container text-center">
+            <a href="../index.php#services-section" role="button" class="btn btn-info">←　Continue shopping</a>
+            
+        </div>
 
         <div class="product-cart-area mg-tb-15">
             <div class="container-fluid">
@@ -152,10 +202,10 @@
                                                         <th>Image</th>
                                                         <th>Title</th>
                                                         <th>Artist</th>
-                                                        <th>Quantity</th>
+                                                        <th>Genre</th>
                                                         <th>Format</th>
                                                         <th>Price</th>
-                                                        <th>Edit</th>
+                                                        <th>Quantity</th>
                                                         <th>Delete</th>
                                                     </tr>
                                                 </thead>
@@ -164,30 +214,48 @@
                                                     <?php
                                                     if(isset($_SESSION['cart_item'])){
                                                         foreach($_SESSION['cart_item'] as $key=>$value){
-                                                                echo "<td><img src='../".$value['song_image']."' alt='".$value['song_title']."' width='50' height='50'></td>";
-                                                                if(!empty($value['song_album_id'])){
-                                                                    echo "<td>".$value['song_title']."<br>(".$value['album_title'].")</td>";
-                                                                }else{
-                                                                    echo "<td>".$value['song_title']."</td>";
-                                                                }
-                                                                echo "<td>".$value['artist_name']."</td>";
-                                                                echo "<td><form action='cart.php' method='post'><input type='number' class='' name='quantity' min=0 max='".$value["song_stock"]."' value='".$value['quantity']."'></td>";
-                                                                echo "<td>".$value['song_format']."</td>";
-                                                                if($value['song_sale_id'] != 99){
-                                                                    echo "<td>".(number_format($value['song_price'] * $value['sale_percentage'],2))." ←".$value['song_price']."<br>On Sale</td>";
-                                                                }else{
-                                                                    echo "<td>".$value['song_price']."</td>";
-                                                                }
-                                                                echo "<td><button type='submit' data-toggle='tooltip' title='Edit' class='pd-setting-ed'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button></form></td>";
-                                                                echo "<td><a href='cart.php?action=remove&id=".$value["song_id"]."' role='button' class='btn btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i></a></td>";
-                                                                echo "</tr>";
+                                                            echo "<td><img src='../".$value['song_image']."' alt='".$value['song_title']."' width='50' height='50'></td>";
+                                                            if(!empty($value['song_album_id'])){
+                                                                echo "<td>".$value['song_title']."<br>(".$value['album_title'].")</td>";
+                                                            }else{
+                                                                echo "<td>".$value['song_title']."</td>";
+                                                            }
+                                                            echo "<td>".$value['artist_name']."</td>";
+                                                            echo "<td>".$value['artist_genre']."</td>";
+                                                            echo "<td>".$value['song_format']."</td>";
+                                                            if($value['song_sale_id'] != 99){
+                                                                echo "<td>".(number_format($value['song_price'] * $value['sale_percentage'],2))." ←".$value['song_price']."<br>On Sale</td>";
+                                                            }else{
+                                                                echo "<td>".$value['song_price']."</td>";
+                                                            }
+                                                            echo "<td>".$value['quantity']."</td>";
+                                                            echo "<td><a href='cart.php?action=remove&id=".$value["song_id"]."' role='button' class='btn btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i></a></td>";
+                                                            echo "</tr>";
+                                                        }
+                                                    }
+
+                                                    if(isset($_SESSION['cart_item2'])){
+                                                        foreach($_SESSION['cart_item2'] as $key=>$value){
+                                                            echo "<td><img src='../".$value['album_image']."' alt='".$value['album_title']."' width='50' height='50'></td>";
+                                                            echo "<td>".$value['album_title']."</td>";
+                                                            echo "<td>".$value['artist_name']."</td>";
+                                                            echo "<td>".$value['artist_genre']."</td>";
+                                                            echo "<td>".$value['album_format']."</td>";
+                                                            if($value['album_sale_id'] != 99){
+                                                                echo "<td>".(number_format($value['album_price'] * $value['sale_percentage'],2))." ←".$value['album_price']."<br>On Sale</td>";
+                                                            }else{
+                                                                echo "<td>".$value['album_price']."</td>";
+                                                            }
+                                                            echo "<td>".$value['quantity']."</td>";
+                                                            echo "<td><a href='cart.php?action2=remove&id=".$value["album_id"]."' role='button' class='btn btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i></a></td>";
+                                                            echo "</tr>";
                                                         }
                                                     }
                                                     ?>
                                                     </form>
                                                 </tbody>    
                                             </table>
-
+              
                                         </div>
                                     </div>
                                 </section>
@@ -196,35 +264,28 @@
                                     <h3 class="product-cart-dn">Shopping</h3>
                                     <div class="product-delivary">
                                         <div class="form-group">
-                                            <label for="card-number" class="form-label">First name *</label>
-                                            <input id="name-2" name="name" type="text" class="form-control">
+                                            <label for="user_fname" class="form-label">First name *</label>
+                                            <input id="user_fname" name="" value="<?php echo ($userslist[0]['user_fname']);?>" type="text" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <label for="card-number" class="form-label">Last name *</label>
-                                            <input id="surname-2" name="surname" type="text" class="form-control">
+                                            <label for="user_lname" class="form-label">Last name *</label>
+                                            <input id="user_lname" name="user_lname" value="<?php echo ($userslist[0]['user_lname']);?>" type="text" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <label for="card-number" class="form-label">Select Country</label>
-                                            <select class="form-control required">
-													<option>Select Country</option>
-													<option>Gujarat</option>
-													<option>Kerala</option>
-													<option>Manipur</option>
-													<option>Tripura</option>
-													<option>Sikkim</option>
-												</select>
+                                            <label for="user_address" class="form-label">Address *</label>
+                                            <input id="user_address" name="user_address" value="<?php echo ($userslist[0]['user_address']);?>" type="text" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <label for="address" class="form-label">Address *</label>
-                                            <input id="address" name="address" type="text" class="form-control">
+                                            <label for="user_phone" class="form-label">Phone *</label>
+                                            <input id="user_phone" name="user_phone" value="<?php echo ($userslist[0]['user_phone']);?>" type="text" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <label for="city" class="form-label">City *</label>
-                                            <input id="city" name="city" type="text" class="form-control">
+                                            <label for="user_email" class="form-label">Email *</label>
+                                            <input id="user_email" name="user_email" value="<?php echo ($userslist[0]['user_email']);?>" type="text" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <label for="phone-2" class="form-label">Phone #</label>
-                                            <input id="phone-2" name="phone" type="number" class="form-control phone">
+                                            <label for="user_password" class="form-label">Password #</label>
+                                            <input id="user_password" name="user_password" value="<?php echo ($userslist[0]['user_password']);?>" type="password" class="form-control phone">
                                         </div>
                                     </div>
                                 </section>

@@ -23,6 +23,7 @@ $rankAlbumlist = $portdao->retrieveRankingA();
             <th>Price</th>
             <th>Format</th>
             <th>Detail</th>
+            <th>Quantity</th>
             <th></th>
         </tr>
     </thead>
@@ -33,6 +34,7 @@ $rankAlbumlist = $portdao->retrieveRankingA();
             if($i >= 50){
                 break;
             }
+            echo "<form action='forms/cart.php?action=add&id=".$value['song_id']."' method='post'>";
             echo "<td>".$i."</td>";
             echo "<td><img src='".($value['song_image'])."' alt='".$value['song_title']."' width='50' height='50'></td>";
             if(!empty($value['song_album_id'])){
@@ -44,14 +46,16 @@ $rankAlbumlist = $portdao->retrieveRankingA();
             echo "<td>".$value['artist_genre']."</td>";
             echo "<td>".date('M d, Y', strtotime($value['song_date']))."</td>";
             if($value['sale_id'] != 99){
-                echo "<td>".(number_format($value['song_price'] * $value['sale_percentage'],2))." ←".$value['song_price']."<br>On Sale</td>";
+                echo "<td>".(number_format($value['song_price'] * $value['sale_percentage'],2))." ←".$value['song_price']."<br><font color='red'>On Sale</font></td>";
             }else{
                 echo "<td>".$value['song_price']."</td>";
             }
             echo "<td>".$value['song_format']."</td>";
             echo "<td><a href='' role='button' class='btn'><i class='fas fa-angle-double-right'></i></a></td>";
-            echo "<td><a href='' role='button' class='btn btn-info'><i class='fas fa-plus'></i></a></td>";
+            echo "<td><input type='number' value='0' min=0 max='".$value["song_stock"]."' name='quantity' style='width: 50px;'></td>";
+            echo "<td><input type='submit' value='Cart' style='width: 80px;' class='btn btn-secondary'></td>";
             echo "</tr>";
+            echo "</form>";
             $i++;
 
         }
@@ -74,6 +78,7 @@ $rankAlbumlist = $portdao->retrieveRankingA();
             <th>Price</th>
             <th>Format</th>
             <th>Detail</th>
+            <th>Quantity</th>
             <th></th>
         </tr>
     </thead>
@@ -84,6 +89,7 @@ $rankAlbumlist = $portdao->retrieveRankingA();
             if($i >= 50){
                 break;
             }
+            echo "<form action='forms/cart.php?action2=add&id=".$value['album_id']."' method='post'>";
             echo "<td>".$i."</td>";
             echo "<td><img src='".($value['album_image'])."' alt='".$value['album_title']."' width='50' height='50'></td>";
             echo "<td>".$value['album_title']."</td>";
@@ -91,14 +97,16 @@ $rankAlbumlist = $portdao->retrieveRankingA();
             echo "<td>".$value['artist_genre']."</td>";
             echo "<td>".date('M d, Y', strtotime($value['album_date']))."</td>";
             if($value['sale_id'] != 99){
-                echo "<td>".(number_format($value['album_price'] * $value['sale_percentage'],2))." ←".$value['album_price']."<br>On Sale</td>";
+                echo "<td>".(number_format($value['album_price'] * $value['sale_percentage'],2))." ←".$value['album_price']."<br><font color='red'>On Sale</font></td>";
             }else{
                 echo "<td>".$value['album_price']."</td>";
             }
             echo "<td>".$value['album_format']."</td>";
             echo "<td><a href='' role='button' class='btn'><i class='fas fa-angle-double-right'></i></a></td>";
-            echo "<td><a href='' role='button' class='btn btn-info'><i class='fas fa-plus'></i></a></td>";
+            echo "<td><input type='number' value='0' min=0 max='".$value["album_stock"]."' name='quantity' style='width: 50px;'></td>";
+            echo "<td><input type='submit' value='Cart' style='width: 80px;' class='btn btn-secondary'></td>";
             echo "</tr>";
+            echo "</form>";
             $i++;
         }
         ?>

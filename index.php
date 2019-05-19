@@ -48,7 +48,7 @@
 	  
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light site-navbar-target" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.html">BIG★HELP<span>CD SHOP</span></a>
+	      <a class="navbar-brand" href="index.php">BIG★HELP<span>CD SHOP</span></a>
 	      <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
@@ -118,7 +118,7 @@
         <div class="row no-gutters">
           <div class="col-md-2 ftco-animate py-1 nav-link-wrap">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-              <a class="nav-link px-4 active" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true"><span class="mr-3 fas fa-dove"></span> New Releases</a>
+              <a class="nav-link px-4 active" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true"><span class="mr-3 fas fa-search"></span> Search</a>
 
               <a class="nav-link px-4" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2" aria-selected="false"><span class="mr-3 fas fa-music"></span> Songs</a>
 
@@ -130,7 +130,7 @@
 
               <a class="nav-link px-4" id="v-pills-6-tab" data-toggle="pill" href="#v-pills-6" role="tab" aria-controls="v-pills-6" aria-selected="false"><span class="mr-3 fa fa-cart-arrow-down"></span> Big Sales★</a>
 
-              <a class="nav-link px-4" id="v-pills-7-tab" data-toggle="pill" href="#v-pills-7" role="tab" aria-controls="v-pills-7" aria-selected="false"><span class="mr-3 fas fa-search"></span> Search</a>
+              <a class="nav-link px-4" id="v-pills-7-tab" data-toggle="pill" href="#v-pills-7" role="tab" aria-controls="v-pills-7" aria-selected="false"><span class="mr-3 fas fa-dove"></span> New Releases</a>
 							
 
             </div>
@@ -140,7 +140,7 @@
             <div class="tab-content pl-md-5" id="v-pills-tabContent" style="height: 800px;">
 
               <div class="tab-pane fade show active py-5 p-3" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
-								<?php require_once 'tables/new.php'; ?>
+								<?php require_once 'tables/search.php'; ?>
               </div>
 
               <div class="tab-pane fade py-5 p-3" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab">
@@ -164,7 +164,7 @@
               </div>
 
               <div class="tab-pane fade py-5 p-3" id="v-pills-7" role="tabpanel" aria-labelledby="v-pills-7-tab">
-								<?php require_once 'tables/search.php'; ?>
+								<?php require_once 'tables/new.php'; ?>
               </div>
             </div>
           </div>

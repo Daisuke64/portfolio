@@ -7,6 +7,9 @@ $songslist = $portdao->retrieveAllsong();
 
 <h4>Songs</h4>										
 <table class="table table-striped table-bordered table-sm text-center" id="tables">
+
+    <div class="p-2 bg-primary"><h4></h4></div>
+
     <thead>
         <tr class="table-success">
             <th>A-Z</th>
@@ -18,7 +21,7 @@ $songslist = $portdao->retrieveAllsong();
             <th>Price</th>
             <th>Format</th>
             <th>Detail</th>
-            <th>quantity</th>
+            <th>Quantity</th>
             <th></th>
         </tr>
     </thead>
@@ -52,7 +55,7 @@ $songslist = $portdao->retrieveAllsong();
                 }
                 echo "<td>".$value['song_format']."</td>";
                 echo "<td><a href='' role='button' class='btn'><i class='fas fa-angle-double-right'></i></a></td>";
-                echo "<td><input type='number' name='quantity' style='width: 50px;'></td>";
+                echo "<td><input type='number' value='0' min=0 max='".$value["song_stock"]."' name='quantity' style='width: 50px;'></td>";
                 echo "<td><input type='submit' value='Cart' style='width: 80px;' class='btn btn-secondary'></td>";
                 echo "</tr>";
                 echo "</form>";

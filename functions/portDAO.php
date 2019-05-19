@@ -224,5 +224,16 @@
             return $rows;
         }
 
+        public function retrieveAllUser($user_id){
+            $sql = "SELECT * FROM users 
+            WHERE user_id = '$user_id'";
+            $result = $this->conn->query($sql);
+            $rows = array();
+
+            while($row=$result->fetch_assoc()){
+                $rows[] = $row;
+            }
+            return $rows;
+        }
                
     }
