@@ -11,29 +11,37 @@
     }
 
     $userslist = $portdao->retrieveAllUser($_SESSION['id']);
-    print_r ($userslist);
+
+    print_r($_SESSION['cart_item']);
+    echo "------------------- <br>";
 
     if(!empty($_GET["action"])){
         switch($_GET["action"]){
             case "add":
                 if(!empty($_POST["quantity"])){
                     $cartSongslist = $portdao->retrieveCartSong($song_id);
+                    //print_r($cartSongslist);
                     $cartArray = array($cartSongslist[0]["song_id"]=>array("song_title"=>$cartSongslist[0]["song_title"],"song_id"=>$cartSongslist[0]["song_id"],"song_image"=>$cartSongslist[0]["song_image"],"quantity"=>$_POST["quantity"],"song_album_id"=>$cartSongslist[0]["song_album_id"],
                     "album_title"=>$cartSongslist[0]["album_title"],"artist_name"=>$cartSongslist[0]["artist_name"],"song_stock"=>$cartSongslist[0]["song_stock"],"song_format"=>$cartSongslist[0]["song_format"],"song_sale_id"=>$cartSongslist[0]["song_sale_id"],
                     "song_price"=>$cartSongslist[0]["song_price"],"sale_percentage"=>$cartSongslist[0]["sale_percentage"], "artist_genre"=>$cartSongslist[0]["artist_genre"]));
+                   // echo "-------------------<br>";
+                    //print_r($cartArray);
                     if(!empty($_SESSION["cart_item"])){
+                       
                         if(in_array($cartSongslist[0]["song_id"],array_keys($_SESSION["cart_item"]))){
+                           
                             foreach($_SESSION["cart_item"] as $key => $value){
-                                if($cartSongslist[0]["song_id"] == $key ){
+                                if($cartSongslist[0]["song_id"] == $key){
                                     if(empty($_SESSION["cart_item"][$key]["quantity"])){
                                         $_SESSION["cart_item"][$key]["quantity"] = 0;
                                         
                                     }
                                     $_SESSION["cart_item"][$key]["quantity"] += $_POST["quantity"];
+                                   // echo "true";
                                 }
                             }
                         }else{
-                            $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$cartArray);
+                            $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"], $cartArray);
                         }
                     }else{
                         $_SESSION["cart_item"] = $cartArray;
@@ -61,7 +69,7 @@
             case "add":
                 if(!empty($_POST["quantity"])){
                     $cartAlbumslist = $portdao->retrieveCartAlbum($album_id);
-                    $cartArray = array($cartAlbumslist[0]["album_id"]=>array("album_title"=>$cartAlbumslist[0]["album_title"],"album_id"=>$cartAlbumslist[0]["album_id"],"album_image"=>$cartAlbumslist[0]["album_image"],"quantity"=>$_POST["quantity"],"album_id"=>$cartAlbumslist[0]["album_id"],
+                    $cartArray2 = array($cartAlbumslist[0]["album_id"]=>array("album_title"=>$cartAlbumslist[0]["album_title"],"album_id"=>$cartAlbumslist[0]["album_id"],"album_image"=>$cartAlbumslist[0]["album_image"],"quantity"=>$_POST["quantity"],"album_id"=>$cartAlbumslist[0]["album_id"],
                     "artist_name"=>$cartAlbumslist[0]["artist_name"],"album_stock"=>$cartAlbumslist[0]["album_stock"],"album_format"=>$cartAlbumslist[0]["album_format"],"album_sale_id"=>$cartAlbumslist[0]["album_sale_id"],
                     "album_price"=>$cartAlbumslist[0]["album_price"],"sale_percentage"=>$cartAlbumslist[0]["sale_percentage"], "artist_genre"=>$cartAlbumslist[0]["artist_genre"]));
                     if(!empty($_SESSION["cart_item2"])){
@@ -76,10 +84,10 @@
                                 }
                             }
                         }else{
-                            $_SESSION["cart_item2"] = array_merge($_SESSION["cart_item2"],$cartArray);
+                            $_SESSION["cart_item2"] = array_merge($_SESSION["cart_item2"],$cartArray2);
                         }
                     }else{
-                        $_SESSION["cart_item2"] = $cartArray;
+                        $_SESSION["cart_item2"] = $cartArray2;
                     }
                 }
             break;
