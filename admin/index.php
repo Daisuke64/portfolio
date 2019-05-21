@@ -1,3 +1,56 @@
+<?php
+    session_start();
+    if($_SESSION['logstat'] !="Active"){
+        header('Location: logout.php');
+		}
+
+        require '../functions/portDAO.php';
+        $portdao = new PortAccessObject;
+        $userslist = $portdao->retrieveAllUser($_SESSION['id']);
+        $userslistComp = $portdao->retrieveAllUserComplete();
+        $userA = $portdao->retrieveAlluserA();
+        $userU = $portdao->retrieveAlluserU();
+        $rankS = $portdao->retrieveSoldRankingS();
+        $rankA = $portdao->retrieveSoldRankingA();
+        $newSonglist2 = $portdao->retrieveAllNewSong2();
+        $newAlbumlist2 = $portdao->retrieveAllNewAlbum2();
+
+
+    if(isset($_POST['submit'])){
+        if(!empty($_POST['check_id'])){
+        $user_id = $_POST['check_id'];
+        $user_status = $_POST['status'];
+        $portdao->changeUserStatus($user_status, $user_id);
+        header('refresh: 0');
+        }
+    }
+
+    if(isset($_POST['delete'])){
+        if(!empty($_POST['check_id'])){
+        $user_id = $_POST['check_id'];
+        $portdao->DeleteUser($user_id);
+        header('refresh: 0');
+        }
+    }
+
+    if(isset($_POST['delete_s'])){
+        if(!empty($_POST['check_s'])){
+        $song_id =$_POST['check_s'];
+        $portdao->DeleteSong($song_id);
+        header('refresh: 0');
+        }
+    }
+    if(isset($_POST['delete_a'])){
+        if(!empty($_POST['check_a'])){
+        $album_id =$_POST['check_a'];
+        $portdao->DeleteAlbum($album_id);
+        header('refresh: 0');
+        }
+    }
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -173,7 +226,7 @@
                                             <img src="images/icon/avatar-01.jpg" alt="John Doe" />
                                         </div>
                                         <div class="content">
-                                            <a class="js-acc-btn" href="#">john doe</a>
+                                            <a class="js-acc-btn" href="#"><?php echo $userslist[0]['user_fname'];?></a>
                                         </div>
                                         <div class="account-dropdown js-dropdown">
                                             <div class="info clearfix">
@@ -184,9 +237,9 @@
                                                 </div>
                                                 <div class="content">
                                                     <h5 class="name">
-                                                        <a href="#">john doe</a>
+                                                        <a href="#"><?php echo $userslist[0]['user_fname'];?></a>
                                                     </h5>
-                                                    <span class="email">johndoe@example.com</span>
+                                                    <span class="email"><?php echo $userslist[0]['user_email'];?></span>
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__body">
@@ -204,7 +257,7 @@
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__footer">
-                                                <a href="#">
+                                                <a href="../index.php">
                                                     <i class="zmdi zmdi-power"></i>Logout</a>
                                             </div>
                                         </div>
@@ -222,132 +275,60 @@
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-9">
+                            <div class="col-lg-8">
                                 <div class="table-responsive table--no-card m-b-30">
                                     <table class="table table-borderless table-striped table-earning">
                                         <thead>
                                             <tr>
-                                                <th>date</th>
-                                                <th>order ID</th>
-                                                <th>name</th>
-                                                <th class="text-right">price</th>
-                                                <th class="text-right">quantity</th>
-                                                <th class="text-right">total</th>
+                                                <th>Date</th>
+                                                <th>Order ID</th>
+                                                <th>User</th>
+                                                <th>Order Status</th>
+                                                <th>Order List</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>2018-09-29 05:57</td>
-                                                <td>100398</td>
-                                                <td>iPhone X 64Gb Grey</td>
-                                                <td class="text-right">$999.00</td>
-                                                <td class="text-right">1</td>
-                                                <td class="text-right">$999.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2018-09-28 01:22</td>
-                                                <td>100397</td>
-                                                <td>Samsung S8 Black</td>
-                                                <td class="text-right">$756.00</td>
-                                                <td class="text-right">1</td>
-                                                <td class="text-right">$756.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2018-09-27 02:12</td>
-                                                <td>100396</td>
-                                                <td>Game Console Controller</td>
-                                                <td class="text-right">$22.00</td>
-                                                <td class="text-right">2</td>
-                                                <td class="text-right">$44.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2018-09-26 23:06</td>
-                                                <td>100395</td>
-                                                <td>iPhone X 256Gb Black</td>
-                                                <td class="text-right">$1199.00</td>
-                                                <td class="text-right">1</td>
-                                                <td class="text-right">$1199.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2018-09-25 19:03</td>
-                                                <td>100393</td>
-                                                <td>USB 3.0 Cable</td>
-                                                <td class="text-right">$10.00</td>
-                                                <td class="text-right">3</td>
-                                                <td class="text-right">$30.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2018-09-29 05:57</td>
-                                                <td>100392</td>
-                                                <td>Smartwatch 4.0 LTE Wifi</td>
-                                                <td class="text-right">$199.00</td>
-                                                <td class="text-right">6</td>
-                                                <td class="text-right">$1494.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2018-09-24 19:10</td>
-                                                <td>100391</td>
-                                                <td>Camera C430W 4k</td>
-                                                <td class="text-right">$699.00</td>
-                                                <td class="text-right">1</td>
-                                                <td class="text-right">$699.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2018-09-22 00:43</td>
-                                                <td>100393</td>
-                                                <td>USB 3.0 Cable</td>
-                                                <td class="text-right">$10.00</td>
-                                                <td class="text-right">3</td>
-                                                <td class="text-right">$30.00</td>
-                                            </tr>
-                                        </tbody>
+                                             <?php
+                                                foreach($orderslistS as $key=>$value){
+                                                    echo "<tr>";
+
+                                                        echo "<td>".$value['order_date']."</td>";
+                                                        echo "<td>".$value['order_id']."</td>";
+                                                        echo "<td>".$value['user_fname']." ".$value['user_lname']."</td>";
+                                                        echo "<td>".$value['order_status']."</td>";
+                                                        echo "<td><a href='' role='button' class='btn'><i class='fas fa-angle-double-right'></i></a></td>";
+
+                                                    echo "</tr>";
+                                                }
+                                            ?>
                                     </table>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-4">
                                 <div class="au-card au-card--bg-blue au-card-top-countries m-b-30">
                                     <div class="au-card-inner">
-                                        <div class="table-responsive">
+                                        <div class="table-responsive  text-white">
                                             <table class="table table-top-countries">
                                                 <tbody>
-                                                    <tr>
-                                                        <td>United States</td>
-                                                        <td class="text-right">$119,366.96</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Australia</td>
-                                                        <td class="text-right">$70,261.65</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>United Kingdom</td>
-                                                        <td class="text-right">$46,399.22</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Turkey</td>
-                                                        <td class="text-right">$35,364.90</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Germany</td>
-                                                        <td class="text-right">$20,366.96</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>France</td>
-                                                        <td class="text-right">$10,366.96</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Australia</td>
-                                                        <td class="text-right">$5,366.96</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Italy</td>
-                                                        <td class="text-right">$1639.32</td>
-                                                    </tr>
+                                                    <?php
+                                                    foreach($orderslistS as $key=>$value){
+                                                        echo "<tr>";
+
+                                                            echo "<td>".$value['order_date']."</td>";
+                                                            echo "<td>".$value['order_id']."</td>";
+                                                            echo "<td>".$value['user_fname']." ".$value['user_lname']."</td>";
+                                                            echo "<td>".$value['order_status']."</td>";
+                                                            echo "<td><a href='' role='button' class='btn'><i class='fas fa-angle-double-right'></i></a></td>";
+
+                                                        echo "</tr>";
+                                                    }
+                                                    ?>
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
@@ -356,22 +337,28 @@
                                     <h3 class="title-3 m-b-30">
                                         <i class="zmdi zmdi-account-calendar"></i>user data</h3>
                                     <div class="filters m-b-45">
+                                        <form action="" method="post">
                                         <div class="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
-                                            <select class="js-select2" name="property">
-                                                <option selected="selected">All Properties</option>
-                                                <option value="">Products</option>
-                                                <option value="">Services</option>
+                                            <select class="js-select2" name="role">
+                                                <option selected="selected">ROLE</option>
+                                                <option value="user">User</option>
+                                                <option value="admin">Admin</option>
                                             </select>
                                             <div class="dropDownSelect2"></div>
                                         </div>
                                         <div class="rs-select2--dark rs-select2--sm rs-select2--border">
                                             <select class="js-select2 au-select-dark" name="time">
-                                                <option selected="selected">All Time</option>
-                                                <option value="">By Month</option>
-                                                <option value="">By Day</option>
+                                                <option selected="selected">STATUS</option>
+                                                <option value="">Active</option>
+                                                <option value="">Inactive</option>
                                             </select>
                                             <div class="dropDownSelect2"></div>
                                         </div>
+                                        <div class="pull-right">
+                                        <button type="submitR" name="submitR" class="au-btn au-btn-icon au-btn--green au-btn--small">
+                                            <i class="fas fa-refresh"></i></button>
+                                        </div>
+                                        </form>
                                     </div>
                                     <div class="table-responsive table-data">
                                         <table class="table">
@@ -385,152 +372,180 @@
                                                     </td>
                                                     <td>name</td>
                                                     <td>role</td>
-                                                    <td>type</td>
-                                                    <td></td>
+                                                    <td>Status</td>
+                                                    <td colspan="2">Action</td>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <label class="au-checkbox">
-                                                            <input type="checkbox">
-                                                            <span class="au-checkmark"></span>
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <div class="table-data__info">
-                                                            <h6>lori lynch</h6>
-                                                            <span>
-                                                                <a href="#">johndoe@gmail.com</a>
-                                                            </span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <span class="role admin">admin</span>
-                                                    </td>
-                                                    <td>
-                                                        <div class="rs-select2--trans rs-select2--sm">
-                                                            <select class="js-select2" name="property">
-                                                                <option selected="selected">Full Control</option>
-                                                                <option value="">Post</option>
-                                                                <option value="">Watch</option>
-                                                            </select>
-                                                            <div class="dropDownSelect2"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <span class="more">
-                                                            <i class="zmdi zmdi-more"></i>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <label class="au-checkbox">
-                                                            <input type="checkbox" checked="checked">
-                                                            <span class="au-checkmark"></span>
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <div class="table-data__info">
-                                                            <h6>lori lynch</h6>
-                                                            <span>
-                                                                <a href="#">johndoe@gmail.com</a>
-                                                            </span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <span class="role user">user</span>
-                                                    </td>
-                                                    <td>
-                                                        <div class="rs-select2--trans rs-select2--sm">
-                                                            <select class="js-select2" name="property">
-                                                                <option value="">Full Control</option>
-                                                                <option value="" selected="selected">Post</option>
-                                                                <option value="">Watch</option>
-                                                            </select>
-                                                            <div class="dropDownSelect2"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <span class="more">
-                                                            <i class="zmdi zmdi-more"></i>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <label class="au-checkbox">
-                                                            <input type="checkbox">
-                                                            <span class="au-checkmark"></span>
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <div class="table-data__info">
-                                                            <h6>lori lynch</h6>
-                                                            <span>
-                                                                <a href="#">johndoe@gmail.com</a>
-                                                            </span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <span class="role user">user</span>
-                                                    </td>
-                                                    <td>
-                                                        <div class="rs-select2--trans rs-select2--sm">
-                                                            <select class="js-select2" name="property">
-                                                                <option value="">Full Control</option>
-                                                                <option value="" selected="selected">Post</option>
-                                                                <option value="">Watch</option>
-                                                            </select>
-                                                            <div class="dropDownSelect2"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <span class="more">
-                                                            <i class="zmdi zmdi-more"></i>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <label class="au-checkbox">
-                                                            <input type="checkbox">
-                                                            <span class="au-checkmark"></span>
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <div class="table-data__info">
-                                                            <h6>lori lynch</h6>
-                                                            <span>
-                                                                <a href="#">johndoe@gmail.com</a>
-                                                            </span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <span class="role member">member</span>
-                                                    </td>
-                                                    <td>
-                                                        <div class="rs-select2--trans rs-select2--sm">
-                                                            <select class="js-select2" name="property">
-                                                                <option selected="selected">Full Control</option>
-                                                                <option value="">Post</option>
-                                                                <option value="">Watch</option>
-                                                            </select>
-                                                            <div class="dropDownSelect2"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <span class="more">
-                                                            <i class="zmdi zmdi-more"></i>
-                                                        </span>
-                                                    </td>
-                                                </tr>
+                                                <?php
+                                                    if(isset($_POST['submitR'])){
+                                                        if($_POST['role'] == "admin"){
+                                                                foreach($userA as $key=>$value){
+                                                                    echo "<form action='' method='post'>";
+                                                                    echo "<tr>";
+                                                                        echo "<td>";
+                                                                            echo "<label class='au-checkbox'>";
+                                                                                echo "<input type='checkbox' name='check_id' value='".$value['user_id']."'>";
+                                                                                echo "<span class='au-checkmark'></span>";
+                                                                            echo "</label>";
+                                                                        echo "</td>";
+                                                                        echo "<td>";
+                                                                            echo "<div class='table-data__info'>";
+                                                                                echo "<h6>".$value['user_fname']." ".$value['user_lname']."</h6>";
+                                                                                echo "<span>";
+                                                                                echo "<a href='#'>".$value['user_email']."</a>";
+                                                                                echo "<br>";
+                                                                                echo "<a href='#'>".$value['user_phone']."</a>";
+                                                                                echo "</span>";
+                                                                            echo "</div>";
+                                                                        echo "</td>";
+                                                                        echo "<td>";
+                                                                            if($value['user_type'] == "A"){
+                                                                                echo "<span class='role admin'>Admin</span>";
+                                                                            }else{
+                                                                                echo "<span class='role user'>User</span>";
+                                                                            }
+                                                                        echo "</td>";
+                                                                        echo "<td>";
+                                                                            echo "<div class='rs-select2--trans rs-select2--sm'>";
+                                                                                echo "<select class='js-select2' name='status'>";
+                                                                                    if($value['user_status'] == 'A'){
+                                                                                        echo "<option selected='selected' value='".$value['user_status']."'>Active</option>";
+                                                                                        echo "<option value='I'>Inactive</option>";
+                                                                                    }else{
+                                                                                        echo "<option selected='selected' value='".$value['user_status']."'>Inactive</option>";
+                                                                                        echo "<option value='A'>Active</option>";
+                                                                                    }
+                                                                                echo "</select>";
+                                                                                echo "<div class='dropDownSelect2'></div>";
+                                                                            echo "</div>";
+                                                                        echo "</td>";
+                                                                        echo "<td>";
+                                                                            echo "<span class='more'>";
+                                                                                echo "<button type='submit' name='submit'><i class='fas fa-edit (alias)'></i></button>";
+                                                                            echo "</span>";
+                                                                        echo "</td>";
+                                                                        echo "<td>";
+                                                                        echo "<span class='more'>";
+                                                                            echo"<button type='submit' name='delete'><i class='fas fa-times'></i></button>";
+                                                                        echo "</span>";
+                                                                    echo "</td>";
+                                                                    echo "</tr>";
+                                                                    echo "</form>";
+                                                                }
+                                                        }elseif($_POST['role'] == "user"){
+                                                                foreach($userU as $key=>$value){
+                                                                    echo "<form action='' method='post'>";
+                                                                    echo "<tr>";
+                                                                        echo "<td>";
+                                                                            echo "<label class='au-checkbox'>";
+                                                                                echo "<input type='checkbox' name='check_id' value='".$value['user_id']."'>";
+                                                                                echo "<span class='au-checkmark'></span>";
+                                                                            echo "</label>";
+                                                                        echo "</td>";
+                                                                        echo "<td>";
+                                                                            echo "<div class='table-data__info'>";
+                                                                                echo "<h6>".$value['user_fname']." ".$value['user_lname']."</h6>";
+                                                                                echo "<span>";
+                                                                                echo "<a href='#'>".$value['user_email']."</a>";
+                                                                                echo "<br>";
+                                                                                echo "<a href='#'>".$value['user_phone']."</a>";
+                                                                                echo "</span>";
+                                                                            echo "</div>";
+                                                                        echo "</td>";
+                                                                        echo "<td>";
+                                                                            if($value['user_type'] == "A"){
+                                                                                echo "<span class='role admin'>Admin</span>";
+                                                                            }else{
+                                                                                echo "<span class='role user'>User</span>";
+                                                                            }
+                                                                        echo "</td>";
+                                                                        echo "<td>";
+                                                                            echo "<div class='rs-select2--trans rs-select2--sm'>";
+                                                                                echo "<select class='js-select2' name='status'>";
+                                                                                    if($value['user_status'] == 'A'){
+                                                                                        echo "<option selected='selected' value='".$value['user_status']."'>Active</option>";
+                                                                                        echo "<option value='I'>Inactive</option>";
+                                                                                    }else{
+                                                                                        echo "<option selected='selected' value='".$value['user_status']."'>Inactive</option>";
+                                                                                        echo "<option value='A'>Active</option>";
+                                                                                    }
+                                                                                echo "</select>";
+                                                                                echo "<div class='dropDownSelect2'></div>";
+                                                                            echo "</div>";
+                                                                        echo "</td>";
+                                                                        echo "<td>";
+                                                                            echo "<span class='more'>";
+                                                                                echo"<button type='submit' name='submit'><i class='fas fa-edit (alias)'></i></button>";
+                                                                            echo "</span>";
+                                                                        echo "</td>";
+                                                                        echo "<td>";
+                                                                        echo "<span class='more'>";
+                                                                            echo"<button type='submit' name='delete'><i class='fas fa-times'></i></button>";
+                                                                        echo "</span>";
+                                                                    echo "</td>";
+                                                                    echo "</tr>";
+                                                                    echo "</form>";
+                                                                }    
+                                                        }
+                                                    }else{
+                                                        foreach($userslistComp as $key=>$value){
+                                                            echo "<form action='' method='post'>";
+                                                            echo "<tr>";
+                                                                echo "<td>";
+                                                                    echo "<label class='au-checkbox'>";
+                                                                        echo "<input type='checkbox' name='check_id' value='".$value['user_id']."'>";
+                                                                        echo "<span class='au-checkmark'></span>";
+                                                                    echo "</label>";
+                                                                echo "</td>";
+                                                                echo "<td>";
+                                                                    echo "<div class='table-data__info'>";
+                                                                        echo "<h6>".$value['user_fname']." ".$value['user_lname']."</h6>";
+                                                                        echo "<span>";
+                                                                        echo "<a href='#'>".$value['user_email']."</a>";
+                                                                        echo "<br>";
+                                                                        echo "<a href='#'>".$value['user_phone']."</a>";
+                                                                        echo "</span>";
+                                                                    echo "</div>";
+                                                                echo "</td>";
+                                                                echo "<td>";
+                                                                    if($value['user_type'] == "A"){
+                                                                        echo "<span class='role admin'>Admin</span>";
+                                                                    }else{
+                                                                        echo "<span class='role user'>User</span>";
+                                                                    }
+                                                                echo "</td>";
+                                                                echo "<td>";
+                                                                    echo "<div class='rs-select2--trans rs-select2--sm'>";
+                                                                        echo "<select class='js-select2' name='status'>";
+                                                                            if($value['user_status'] == 'A'){
+                                                                                echo "<option selected='selected' value='".$value['user_status']."'>Active</option>";
+                                                                                echo "<option value='I'>Inactive</option>";
+                                                                            }else{
+                                                                                echo "<option selected='selected' value='".$value['user_status']."'>Inactive</option>";
+                                                                                echo "<option value='A'>Active</option>";
+                                                                            }
+                                                                        echo "</select>";
+                                                                        echo "<div class='dropDownSelect2'></div>";
+                                                                    echo "</div>";
+                                                                echo "</td>";
+                                                                echo "<td>";
+                                                                    echo "<span class='more'>";
+                                                                        echo"<button type='submit' name='submit'><i class='fas fa-edit (alias)'></i></button>";
+                                                                    echo "</span>";
+                                                                echo "</td>";
+                                                                echo "<td>";
+                                                                echo "<span class='more'>";
+                                                                    echo"<button type='submit' name='delete'><i class='fas fa-times'></i></button>";
+                                                                echo "</span>";
+                                                            echo "</td>";
+                                                            echo "</tr>";
+                                                            echo "</form>";
+                                                        }    
+                                                    }
+                                                ?>
                                             </tbody>
                                         </table>
-                                    </div>
-                                    <div class="user-data__footer">
-                                        <button class="au-btn au-btn-load">load more</button>
                                     </div>
                                 </div>
                                 <!-- END USER DATA-->
@@ -538,58 +553,84 @@
                             <div class="col-lg-6">
                                 <!-- TOP CAMPAIGN-->
                                 <div class="top-campaign">
-                                    <h3 class="title-3 m-b-30">top campaigns</h3>
+                                    <h3 class="title-3 m-b-30">Top Sales</h3>
+                                    <div class="filters m-b-45">
+                                        <form action="" method="post">
+                                        <div class="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
+                                            <select class="js-select2" name="type">
+                                                <option selected="selected">TYPE</option>
+                                                <option value="songs">Songs</option>
+                                                <option value="albums">Albums</option>
+                                            </select>
+                                            <div class="dropDownSelect2"></div>
+                                        </div>
+                                        <div class="rs-select2--dark rs-select2--sm rs-select2--border">
+                                            <select class="js-select2 au-select-dark" name="time">
+                                                <option selected="selected">All Time</option>
+                                                <option value="">By Month</option>
+                                                <option value="">By Day</option>
+                                            </select>
+                                            <div class="dropDownSelect2"></div>
+                                        </div>
+                                        <div class="pull-right">
+                                        <button type="submitT" name="submitT" class="au-btn au-btn-icon au-btn--green au-btn--small">
+                                            <i class="fas fa-refresh"></i></button>
+                                        </div>
+                                        </form>
+
+                                    </div>
                                     <div class="table-responsive">
                                         <table class="table table-top-campaign">
                                             <tbody>
-                                                <tr>
-                                                    <td>1. Australia</td>
-                                                    <td>$70,261.65</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2. United Kingdom</td>
-                                                    <td>$46,399.22</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3. Turkey</td>
-                                                    <td>$35,364.90</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>4. Germany</td>
-                                                    <td>$20,366.96</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>5. France</td>
-                                                    <td>$10,366.96</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3. Turkey</td>
-                                                    <td>$35,364.90</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>4. Germany</td>
-                                                    <td>$20,366.96</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>5. France</td>
-                                                    <td>$10,366.96</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3. Turkey</td>
-                                                    <td>$35,364.90</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>4. Germany</td>
-                                                    <td>$20,366.96</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>5. France</td>
-                                                    <td>$10,366.96</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>4. Germany</td>
-                                                    <td>$20,366.96</td>
-                                                </tr>
+                                            <?PHP
+                                                $i = 1;
+                                                if(isset($_POST['submitT'])){
+                                                    if($_POST['type'] == "songs"){
+                                                        foreach($rankS as $key=>$value){
+                                                            if($i >= 50){
+                                                                break;
+                                                            }
+                                                            echo "<tr>";
+
+                                                                echo "<td>".$i."</td>";
+                                                                echo "<td>".$value['song_title']."<br>(".$value['album_title'].")</td>";
+                                                                echo "<td>".number_format($value['rank'])."</td>";
+    
+                                                            echo "</tr>";
+                                                            $i++;
+                                                        }
+                                                    }elseif($_POST['type'] == "albums"){
+                                                        foreach($rankA as $key=>$value){
+                                                            if($i >= 50){
+                                                                break;
+                                                            }
+                                                            echo "<tr>";
+                                                                
+                                                                echo "<td>".$i."</td>";
+                                                                echo "<td>".$value['album_title']."</td>";
+                                                                echo "<td>".number_format($value['rank'])."</td>";
+
+                                                            echo "</tr>";
+                                                            $i++;
+                                                        }
+                                                    }    
+                                                }else{
+                                                    foreach($rankS as $key=>$value){
+                                                        if($i >= 50){
+                                                            break;
+                                                        }
+                                                        echo "<tr>";
+                                                            
+                                                            echo "<td>".$i."</td>";
+                                                            echo "<td>".$value['song_title']."<br>(".$value['album_title'].")</td>";
+                                                            echo "<td>".number_format($value['rank'])."</td>";
+
+                                                        echo "</tr>";
+                                                        $i++;
+
+                                                    }
+                                                }
+                                                    ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -603,11 +644,12 @@
                                 <h3 class="title-5 m-b-35">data table</h3>
                                 <div class="table-data__tool">
                                     <div class="table-data__tool-left">
+                                        <form action="" method="post">
                                         <div class="rs-select2--light rs-select2--md">
-                                            <select class="js-select2" name="property">
-                                                <option selected="selected">All Properties</option>
-                                                <option value="">Option 1</option>
-                                                <option value="">Option 2</option>
+                                            <select class="js-select2" name="type2">
+                                                <option selected="selected">Type</option>
+                                                <option value="songs2">Songs</option>
+                                                <option value="albums2">Album</option>
                                             </select>
                                             <div class="dropDownSelect2"></div>
                                         </div>
@@ -619,262 +661,131 @@
                                             </select>
                                             <div class="dropDownSelect2"></div>
                                         </div>
-                                        <button class="au-btn-filter">
-                                            <i class="zmdi zmdi-filter-list"></i>filters</button>
+                                        <div class="pull-right">
+                                        <button type="submitT2" name="submitT2" class="au-btn au-btn-icon au-btn--green au-btn--small">
+                                            <i class="fas fa-refresh"></i></button>
+                                        </div>
+                                        </form>
                                     </div>
                                     <div class="table-data__tool-right">
-                                        <button class="au-btn au-btn-icon au-btn--green au-btn--small">
-                                            <i class="zmdi zmdi-plus"></i>add item</button>
-                                        <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
-                                            <select class="js-select2" name="type">
-                                                <option selected="selected">Export</option>
-                                                <option value="">Option 1</option>
-                                                <option value="">Option 2</option>
-                                            </select>
-                                            <div class="dropDownSelect2"></div>
-                                        </div>
+                                        <a href='../forms/itemadd.php' role='botton' class="au-btn au-btn-icon au-btn--green au-btn--small"><i class="zmdi zmdi-plus"></i>Add Item</a>
                                     </div>
                                 </div>
                                 <div class="table-responsive table-responsive-data2">
                                     <table class="table table-data2">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    <label class="au-checkbox">
-                                                        <input type="checkbox">
-                                                        <span class="au-checkmark"></span>
-                                                    </label>
-                                                </th>
-                                                <th>name</th>
-                                                <th>email</th>
-                                                <th>description</th>
-                                                <th>date</th>
-                                                <th>status</th>
-                                                <th>price</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="tr-shadow">
-                                                <td>
-                                                    <label class="au-checkbox">
-                                                        <input type="checkbox">
-                                                        <span class="au-checkmark"></span>
-                                                    </label>
-                                                </td>
-                                                <td>Lori Lynch</td>
-                                                <td>
-                                                    <span class="block-email">lori@example.com</span>
-                                                </td>
-                                                <td class="desc">Samsung S8 Black</td>
-                                                <td>2018-09-27 02:12</td>
-                                                <td>
-                                                    <span class="status--process">Processed</span>
-                                                </td>
-                                                <td>$679.00</td>
-                                                <td>
-                                                    <div class="table-data-feature">
-                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-                                                            <i class="zmdi zmdi-mail-send"></i>
-                                                        </button>
-                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                            <i class="zmdi zmdi-edit"></i>
-                                                        </button>
-                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                            <i class="zmdi zmdi-delete"></i>
-                                                        </button>
-                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-                                                            <i class="zmdi zmdi-more"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="spacer"></tr>
-                                            <tr class="tr-shadow">
-                                                <td>
-                                                    <label class="au-checkbox">
-                                                        <input type="checkbox">
-                                                        <span class="au-checkmark"></span>
-                                                    </label>
-                                                </td>
-                                                <td>Lori Lynch</td>
-                                                <td>
-                                                    <span class="block-email">john@example.com</span>
-                                                </td>
-                                                <td class="desc">iPhone X 64Gb Grey</td>
-                                                <td>2018-09-29 05:57</td>
-                                                <td>
-                                                    <span class="status--process">Processed</span>
-                                                </td>
-                                                <td>$999.00</td>
-                                                <td>
-                                                    <div class="table-data-feature">
-                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-                                                            <i class="zmdi zmdi-mail-send"></i>
-                                                        </button>
-                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                            <i class="zmdi zmdi-edit"></i>
-                                                        </button>
-                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                            <i class="zmdi zmdi-delete"></i>
-                                                        </button>
-                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-                                                            <i class="zmdi zmdi-more"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="spacer"></tr>
-                                            <tr class="tr-shadow">
-                                                <td>
-                                                    <label class="au-checkbox">
-                                                        <input type="checkbox">
-                                                        <span class="au-checkmark"></span>
-                                                    </label>
-                                                </td>
-                                                <td>Lori Lynch</td>
-                                                <td>
-                                                    <span class="block-email">lyn@example.com</span>
-                                                </td>
-                                                <td class="desc">iPhone X 256Gb Black</td>
-                                                <td>2018-09-25 19:03</td>
-                                                <td>
-                                                    <span class="status--denied">Denied</span>
-                                                </td>
-                                                <td>$1199.00</td>
-                                                <td>
-                                                    <div class="table-data-feature">
-                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-                                                            <i class="zmdi zmdi-mail-send"></i>
-                                                        </button>
-                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                            <i class="zmdi zmdi-edit"></i>
-                                                        </button>
-                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                            <i class="zmdi zmdi-delete"></i>
-                                                        </button>
-                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-                                                            <i class="zmdi zmdi-more"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="spacer"></tr>
-                                            <tr class="tr-shadow">
-                                                <td>
-                                                    <label class="au-checkbox">
-                                                        <input type="checkbox">
-                                                        <span class="au-checkmark"></span>
-                                                    </label>
-                                                </td>
-                                                <td>Lori Lynch</td>
-                                                <td>
-                                                    <span class="block-email">doe@example.com</span>
-                                                </td>
-                                                <td class="desc">Camera C430W 4k</td>
-                                                <td>2018-09-24 19:10</td>
-                                                <td>
-                                                    <span class="status--process">Processed</span>
-                                                </td>
-                                                <td>$699.00</td>
-                                                <td>
-                                                    <div class="table-data-feature">
-                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-                                                            <i class="zmdi zmdi-mail-send"></i>
-                                                        </button>
-                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                            <i class="zmdi zmdi-edit"></i>
-                                                        </button>
-                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                            <i class="zmdi zmdi-delete"></i>
-                                                        </button>
-                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-                                                            <i class="zmdi zmdi-more"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
+                                    <thead>
+                                        <tr class="table-success">
+                                            <th>Date</th>
+                                            <th>Cover</th>
+                                            <th>Title</th>
+                                            <th>Artist</th>
+                                            <th>Genre</th>
+                                            <th>Price</th>
+                                            <th>Format</th>
+                                            <th>Stock</th>
+                                            <th>Detail</th>
+                                            <th colspan="2">Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                        if(isset($_POST['submitT2'])){
+                                            if($_POST['type2'] == "songs2"){
+                                                    foreach($newSonglist2 as $key=>$value){
+                                                        echo "<form action='' method='post'>";
+                                                        echo "<tr>";
+                                                        echo "<td>".date('M d, Y', strtotime($value['song_date']))."</td>";
+                                                        echo "<td><img src='../".($value['song_image'])."' alt='".$value['song_title']."' width='50' height='50'></td>";
+                                                        if(!empty($value['song_album_id'])){
+                                                            echo "<td>".$value['song_title']."<br>(".$value['album_title'].")</td>";
+                                                        }else{
+                                                            echo "<td>".$value['song_title']."</td>";
+                                                        }
+                                                        echo "<td>".$value['artist_name']."</td>";
+                                                        echo "<td>".$value['artist_genre']."</td>";
+                                                        if($value['sale_id'] != 99){
+                                                            echo "<td>".(number_format($value['song_price'] * $value['sale_percentage'],2))." ←".$value['song_price']."<br><font color='red'>On Sale</font></td>";
+                                                        }else{
+                                                            echo "<td>".$value['song_price']."</td>";
+                                                        }
+                                                        echo "<td>".$value['song_format']."</td>";
+                                                        echo "<td>".$value['song_stock']."</td>";
+                                                        echo "<td><a href='' role='button' class=''><i class='fas fa-angle-double-right'></i></a></td>";
+                                                        echo "<td>";
+                                                        echo "<label class='au-checkbox'>";
+                                                            echo "<input type='checkbox' name='check_s' value='".$value['song_id']."'>";
+                                                            echo "<span class='au-checkmark'></span>";
+                                                        echo "</label>";
+                                                        echo "</td>";
+                                                        echo "<td><button type='submit' name='delete_s' class='btn btn-danger'><i class='fas fa-times'></i></button></td>";
+                                                        echo "</tr>";
+                                                        echo "</form>";
+                                                    }
+                                            }elseif($_POST['type2'] == "albums2"){
+                                                    foreach($newAlbumlist2 as $key=>$value){
+                                                        echo "<form action='' method='post'>";
+                                                        echo "<tr>";
+                                                        echo "<td>".date('M d, Y', strtotime($value['album_date']))."</td>";
+                                                        echo "<td><img src='../".($value['album_image'])."' alt='".$value['album_title']."' width='50' height='50'></td>";
+                                                        echo "<td>".$value['album_title']."</td>";
+                                                        echo "<td>".$value['artist_name']."</td>";
+                                                        echo "<td>".$value['artist_genre']."</td>";
+                                                        if($value['sale_id'] != 99){
+                                                            echo "<td>".(number_format($value['album_price'] * $value['sale_percentage'],2))." ←".$value['album_price']."<br><font color='red'>On Sale</font></td>";
+                                                        }else{
+                                                            echo "<td>".$value['album_price']."</td>";
+                                                        }
+                                                        echo "<td>".$value['album_format']."</td>";
+                                                        echo "<td>".$value['album_stock']."</td>";
+                                                        echo "<td><a href='' role='button' class=''><i class='fas fa-angle-double-right'></i></a></td>";
+                                                        echo "<td>";
+                                                        echo "<label class='au-checkbox'>";
+                                                            echo "<input type='checkbox' name='check_a' value='".$value['album_id']."'>";
+                                                            echo "<span class='au-checkmark'></span>";
+                                                        echo "</label>";
+                                                        echo "</td>";
+                                                        echo "<td><button type='submit' name='delete_a' class='btn btn-danger'><i class='fas fa-times'></i></button></td>";
+                                                        echo "</tr>";
+                                                        echo "</form>";
+                                                    }
+                                            }
+                                        }else{
+                                            foreach($newSonglist2 as $key=>$value){
+                                                echo "<form action='' method='post'>";
+                                                echo "<tr>";
+                                                echo "<td>".date('M d, Y', strtotime($value['song_date']))."</td>";
+                                                echo "<td><img src='../".($value['song_image'])."' alt='".$value['song_title']."' width='50' height='50'></td>";
+                                                if(!empty($value['song_album_id'])){
+                                                    echo "<td>".$value['song_title']."<br>(".$value['album_title'].")</td>";
+                                                }else{
+                                                    echo "<td>".$value['song_title']."</td>";
+                                                }
+                                                echo "<td>".$value['artist_name']."</td>";
+                                                echo "<td>".$value['artist_genre']."</td>";
+                                                if($value['sale_id'] != 99){
+                                                    echo "<td>".(number_format($value['song_price'] * $value['sale_percentage'],2))." ←".$value['song_price']."<br><font color='red'>On Sale</font></td>";
+                                                }else{
+                                                    echo "<td>".$value['song_price']."</td>";
+                                                }
+                                                echo "<td>".$value['song_format']."</td>";
+                                                echo "<td>".$value['song_stock']."</td>";
+                                                echo "<td><a href='' role='button' class=''><i class='fas fa-angle-double-right'></i></a></td>";
+                                                echo "<td>";
+                                                echo "<label class='au-checkbox'>";
+                                                    echo "<input type='checkbox' name='check_s' value='".$value['song_id']."'>";
+                                                    echo "<span class='au-checkmark'></span>";
+                                                echo "</label>";
+                                                echo "</td>";
+                                                echo "<td><button type='submit' name='delete_s' class='btn btn-danger'><i class='fas fa-times'></i></button></td>";
+                                                echo "</tr>";
+                                                echo "</form>";
+                                            }
+                                        }
+                                    ?>
+                                    </tbody>
                                     </table>
                                 </div>
                                 <!-- END DATA TABLE -->
-                            </div>
-                        </div>
-                        <div class="row m-t-30">
-                            <div class="col-md-12">
-                                <!-- DATA TABLE-->
-                                <div class="table-responsive m-b-40">
-                                    <table class="table table-borderless table-data3">
-                                        <thead>
-                                            <tr>
-                                                <th>date</th>
-                                                <th>type</th>
-                                                <th>description</th>
-                                                <th>status</th>
-                                                <th>price</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>2018-09-29 05:57</td>
-                                                <td>Mobile</td>
-                                                <td>iPhone X 64Gb Grey</td>
-                                                <td class="process">Processed</td>
-                                                <td>$999.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2018-09-28 01:22</td>
-                                                <td>Mobile</td>
-                                                <td>Samsung S8 Black</td>
-                                                <td class="process">Processed</td>
-                                                <td>$756.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2018-09-27 02:12</td>
-                                                <td>Game</td>
-                                                <td>Game Console Controller</td>
-                                                <td class="denied">Denied</td>
-                                                <td>$22.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2018-09-26 23:06</td>
-                                                <td>Mobile</td>
-                                                <td>iPhone X 256Gb Black</td>
-                                                <td class="denied">Denied</td>
-                                                <td>$1199.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2018-09-25 19:03</td>
-                                                <td>Accessories</td>
-                                                <td>USB 3.0 Cable</td>
-                                                <td class="process">Processed</td>
-                                                <td>$10.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2018-09-29 05:57</td>
-                                                <td>Accesories</td>
-                                                <td>Smartwatch 4.0 LTE Wifi</td>
-                                                <td class="denied">Denied</td>
-                                                <td>$199.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2018-09-24 19:10</td>
-                                                <td>Camera</td>
-                                                <td>Camera C430W 4k</td>
-                                                <td class="process">Processed</td>
-                                                <td>$699.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2018-09-22 00:43</td>
-                                                <td>Computer</td>
-                                                <td>Macbook Pro Retina 2017</td>
-                                                <td class="process">Processed</td>
-                                                <td>$10.00</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!-- END DATA TABLE-->
                             </div>
                         </div>
                         <div class="row">
@@ -914,6 +825,7 @@
     <!-- Main JS-->
     <script src="js/main.js"></script>
 
+                          
 </body>
 
 </html>

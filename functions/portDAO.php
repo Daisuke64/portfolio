@@ -17,6 +17,29 @@
             $result = $this->conn->query($sql);
         }
 
+        public function changeUserStatus($user_status, $user_id){
+            $sql = "UPDATE users SET user_status = '$user_status'
+            WHERE user_id = '$user_id'";
+            $result = $this->conn->query($sql);
+        }
+
+        public function DeleteUser($user_id){
+            $sql = "DELETE FROM users WHERE user_id = '$user_id'";
+            $result = $this->conn->query($sql);
+        }
+
+        public function DeleteSong($song_id){
+            $sql = "UPDATE songs SET song_status = 'I'
+            WHERE song_id = '$song_id'";
+            $result = $this->conn->query($sql);
+        }
+
+        public function DeleteAlbum($album_id){
+            $sql = "UPDATE albums SET album_status = 'I'
+            WHERE album_id = '$album_id'";
+            $result = $this->conn->query($sql);
+        }
+
         public function retrieveAllNewSong(){
             $start_date = date('Y-m-01');
             $end_date = date('Y-m-t');
@@ -24,7 +47,23 @@
             JOIN artists ON songs.artist_id = artists.artist_id 
             JOIN albums ON songs.song_album_id = albums.album_id
             JOIN sales ON songs.song_sale_id = sales.sale_id
-            WHERE song_date BETWEEN '$start_date' AND '$end_date' ORDER BY song_date ASC";
+            WHERE song_date BETWEEN '$start_date' AND '$end_date' ORDER BY song_date DESC";
+            $result = $this->conn->query($sql);
+            $rows = array();
+
+            while($row=$result->fetch_assoc()){
+                $rows[] = $row;
+            }
+            return $rows;
+        }
+
+        public function retrieveAllNewSong2(){
+            $sql = "SELECT * FROM songs 
+            JOIN artists ON songs.artist_id = artists.artist_id 
+            JOIN albums ON songs.song_album_id = albums.album_id
+            JOIN sales ON songs.song_sale_id = sales.sale_id
+            WHERE song_status = 'A'
+            ORDER BY song_date DESC";
             $result = $this->conn->query($sql);
             $rows = array();
 
@@ -41,6 +80,21 @@
             JOIN artists ON albums.artist_id = artists.artist_id
             JOIN sales ON albums.album_sale_id = sales.sale_id 
             WHERE album_date BETWEEN '$start_date' AND '$end_date' ORDER BY album_date DESC";
+            $result = $this->conn->query($sql);
+            $rows = array();
+
+            while($row=$result->fetch_assoc()){
+                $rows[] = $row;
+            }
+            return $rows;
+        }
+
+        public function retrieveAllNewAlbum2(){
+            $sql = "SELECT * FROM albums 
+            JOIN artists ON albums.artist_id = artists.artist_id
+            JOIN sales ON albums.album_sale_id = sales.sale_id 
+            WHERE album_status = 'A'
+            ORDER BY album_date DESC";
             $result = $this->conn->query($sql);
             $rows = array();
 
@@ -123,13 +177,11 @@
         }
 
         public function retrieveRankingS(){
-            $sql = "SELECT * , SUM(order_quantity_s) AS total FROM orders
-            JOIN songs ON songs.song_id = orders.order_song 
+            $sql = "SELECT * FROM songs 
+            JOIN artists ON songs.artist_id = artists.artist_id 
             JOIN albums ON songs.song_album_id = albums.album_id
-            JOIN artists ON songs.artist_id = artists.artist_id
             JOIN sales ON songs.song_sale_id = sales.sale_id
-            GROUP BY order_song
-            ORDER BY total DESC";
+            ORDER BY song_sold DESC";
             $result = $this->conn->query($sql);
             $rows = array();
 
@@ -140,12 +192,10 @@
         }
 
         public function retrieveRankingA(){
-            $sql = "SELECT * , SUM(order_quantity_a) AS total FROM orders
-            JOIN albums ON albums.album_id = orders.order_album 
+            $sql = "SELECT * FROM albums 
             JOIN artists ON albums.artist_id = artists.artist_id
             JOIN sales ON albums.album_sale_id = sales.sale_id
-            GROUP BY order_album
-            ORDER BY total DESC";
+            ORDER BY album_sold DESC";
             $result = $this->conn->query($sql);
             $rows = array();
 
@@ -235,5 +285,95 @@
             }
             return $rows;
         }
+
+        public function retrieveAllUserComplete(){
+            $sql = "SELECT * FROM users";
+            $result = $this->conn->query($sql);
+            $rows = array();
+            while($row=$result->fetch_assoc()){
+                $rows[] = $row;
+            }
+            return $rows;
+        }
+
+        public function retrieveAlluserA(){
+            $sql = "SELECT * FROM users
+            WHERE user_type = 'A'";
+            $result = $this->conn->query($sql);
+            $rows = array();
+            while($row=$result->fetch_assoc()){
+                $rows[] = $row;
+            }
+            return $rows;
+        }
+
+        public function retrieveAllUserU(){
+            $sql = "SELECT * FROM users
+            WHERE user_type = 'U'";
+            $result = $this->conn->query($sql);
+            $rows = array();
+            while($row=$result->fetch_assoc()){
+                $rows[] = $row;
+            }
+            return $rows;
+        }
+
+        public function retrieveSoldRankingS(){
+            $sql = "SELECT song_title, album_title, 
+            IF(sale_percentage != 0 , (song_sold * (song_price * sale_percentage)) , (song_sold * song_price)) AS rank
+            FROM  songs
+            JOIN artists ON songs.artist_id = artists.artist_id 
+            JOIN albums ON songs.song_album_id = albums.album_id
+            JOIN sales ON songs.song_sale_id = sales.sale_id
+            ORDER BY rank DESC";
+            $result = $this->conn->query($sql);
+            $rows = array();
+
+            while($row=$result->fetch_assoc()){
+                $rows[] = $row;
+            }
+            return $rows;
+        }
+
+        public function retrieveSoldRankingA(){
+            $sql = "SELECT album_title, 
+            IF(sale_percentage != 0 , (album_sold * (album_price * sale_percentage)) , (album_sold * album_price)) AS rank
+            FROM  albums
+            JOIN artists ON albums.artist_id = artists.artist_id 
+            JOIN sales ON albums.album_sale_id = sales.sale_id
+            ORDER BY rank DESC";
+            $result = $this->conn->query($sql);
+            $rows = array();
+
+            while($row=$result->fetch_assoc()){
+                $rows[] = $row;
+            }
+            return $rows;
+        }
+
+        public function retrieveAllsaleAdd(){
+            $sql = "SELECT * FROM sales";
+            $result = $this->conn->query($sql);
+            $rows = array();
+            while($row=$result->fetch_assoc()){
+                $rows[] = $row;
+            }
+            return $rows;
+        }
+
+        public function retrieveAllArtistAdd(){
+            $sql = "SELECT * FROM artists";
+            $result = $this->conn->query($sql);
+            $rows = array();
+            while($row=$result->fetch_assoc()){
+                $rows[] = $row;
+            }
+            return $rows;
+        }
+
+
+        
+
+
                
     }
