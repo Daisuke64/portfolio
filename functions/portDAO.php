@@ -371,6 +371,26 @@
             return $rows;
         }
 
+        public function retrieveAllAlbumsAdd(){
+            $sql = "SELECT * FROM albums";
+            $result = $this->conn->query($sql);
+            $rows = array();
+            while($row=$result->fetch_assoc()){
+                $rows[] = $row;
+            }
+            return $rows;
+        }
+
+        public function addsong($song_image, $song_title, $song_date, $song_detail, $song_label, $song_price, $song_format, $song_stock, $song_sale, $song_album){
+            $sql = "INSERT INTO songs (song_image, song_title, song_date, song_detail, song_label, song_price, song_format, song_stock, song_sale, song_album) VALUES ('$song_image', '$song_title', '$song_date', '$song_detail', '$song_label', '$song_price', '$song_format', '$song_stock', '$song_sale', '$song_album')";
+            $result = $this->conn->query($sql);
+        }
+
+        public function addartist($artist_name, $aritst_genre, $aritst_counrty, $aritst_detail){
+            $sql = "INSERT INTO artists (artist_name, aritst_genre, aritst_counrty, aritst_detail) VALUES ('$artist_name', '$aritst_genre', '$aritst_counrty', '$aritst_detail')";
+            $result = $this->conn->query($sql);
+        }
+
 
         
 

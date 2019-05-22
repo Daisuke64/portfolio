@@ -3,8 +3,9 @@
       $portdao = new PortAccessObject;
       $saleslist = $portdao->retrieveAllsaleAdd();
       $artistslist = $portdao->retrieveAllArtistAdd();
+      $albumslist = $portdao->retrieveAllAlbumsAdd();
 
-      if(isset($_POST['add'])){
+      if(isset($_POST['add_s'])){
 
         $song_image = $_POST['image'];
         $song_title = $_POST['title'];
@@ -21,12 +22,13 @@
         if(!empty($_POST['artist_oldName'])){
           $artist_name = $_POST['artist_nameOld'];
         }else{
-          $artist_name = $_POST['artist_nameNew']
+          $artist_name = $_POST['artist_nameNew'];
         }
         $aritst_genre = $_POST['arrtist_genre'];
         $aritst_counrty = $_POST['arrtist_country'];
         $aritst_detail = $_POST['arrtist_detail'];
-        $portdao->addsong($song_image, $song_title, $song_date, $song_detail, $song_label, $song_price, $song_format, $song_stock, $song_sale, $song_album, $artist_name, $aritst_genre, $aritst_counrty, $aritst_detail);
+        $portdao->addsong($song_image, $song_title, $song_date, $song_detail, $song_label, $song_price, $song_format, $song_stock, $song_sale, $song_album);
+        $portdao->addartist($artist_name, $aritst_genre, $aritst_counrty, $aritst_detail);
       }
 
 ?>
@@ -166,7 +168,14 @@
                   </div>
                   <div class="form-group">
                       <label for="album" class="form-label">Album title (only Songs)</label>
-                      <input id="album" name="album" type="text" class="form-control phone">
+                      <select name="album" id="" class="form-control">
+                          <option value="---">Please Choose A Album</option>
+                          <?php
+                              foreach($albumslist as $key => $values){
+                                  echo "<option value='".$values['album_id']."'>".$values['album_title']."</option>";
+                              }
+                          ?>
+                      </select>
                   </div>
                   <div class="form-group">
                       <label for="contents" class="form-label">Album Contents (only Albums)</label>
@@ -225,6 +234,7 @@
 
         <br>
         <br>
+        <br>
 
 
         <div class="footer-copyright-area">
@@ -238,7 +248,7 @@
                 </div>
             </div>
         </div>
-    </div>
+
 
     <!-- jquery
 		============================================ -->
