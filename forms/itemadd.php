@@ -7,7 +7,9 @@
 
       if(isset($_POST['add_s'])){
 
-        $song_image = $_POST['image'];
+        $song_image = $_FILES['image']['name'];
+        $tmp_file_name = $_FILES['image']['tmp_name'];
+        $directory = "../images_songs/";
         $song_title = $_POST['title'];
         $song_date = $_POST['date'];
         $song_detail = $_POST['detail'];
@@ -19,11 +21,13 @@
         $song_sale_id = $_POST['sale'];
         $song_album_id = $_POST['album'];
         $artist_id = $_POST['artist'];
-        $portdao->addSong($song_image, $song_title, $song_date, $song_detail, $song_label, $song_price, $song_format, $song_stock, $song_sale_id, $song_album_id, $artist_id);
+        $portdao->addSong($song_image, $song_title, $song_date, $song_detail, $song_label, $song_price, $song_format, $song_stock, $song_sale_id, $song_album_id, $artist_id, $tmp_file_name, $directory);
       }
 
       if(isset($_POST['add_a'])){
-        $album_image = $_POST['image'];
+        $album_image = $_FILES['image']['name'];
+        $tmp_file_name = $_FILES['image']['tmp_name'];
+        $directory = "../images_albums/";
         $album_title = $_POST['title'];
         $album_date = $_POST['date'];
         $album_detail = $_POST['detail'];
@@ -35,7 +39,7 @@
         $album_sale_id = $_POST['sale'];
         $album_contents = $_POST['contents'];
         $artist_id = $_POST['artist'];
-        $portdao->addAlbum($album_image, $album_title, $album_date, $album_detail, $album_label, $album_price, $album_format, $album_stock, $album_sale_id, $album_contents, $artist_id);
+        $portdao->addAlbum($album_image, $album_title, $album_date, $album_detail, $album_label, $album_price, $album_format, $album_stock, $album_sale_id, $album_contents, $artist_id, $tmp_file_name, $directory);
       }
 
       if(isset($_POST['add_art'])){
@@ -55,7 +59,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Create New Account</title>
+    <title>Create New Item</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
@@ -162,11 +166,11 @@
         <br>
 
         <div class="container py-3 my-5 bg-warning">
-          <form action="" method="post">
+          <form action="" method="post" enctype="multipart/form-data">
                                   
                   <div class="form-group">
                       <label for="image" class="form-label">Song / Album Image</label>
-                      <input id="image" name="image" type="text" class="form-control">
+                      <input id="image" name="image" type="file" class="form-control">
                   </div>
                   <div class="form-group">
                       <label for="title" class="form-label">Song / Album title</label>

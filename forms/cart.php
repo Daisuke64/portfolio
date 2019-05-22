@@ -12,11 +12,12 @@
 
     $userslist = $portdao->retrieveAllUser($_SESSION['id']);
 
+    $cartSongslist = $portdao->retrieveCartSong($song_id);
     if(!empty($_GET["action"])){
         switch($_GET["action"]){
             case "add":
                 if(!empty($_POST["quantity"])){
-                    $cartSongslist = $portdao->retrieveCartSong($song_id);
+
                     $cartArray = array($cartSongslist[0]["song_title"]=>array("song_title"=>$cartSongslist[0]["song_title"],"song_id"=>$cartSongslist[0]["song_id"],"song_image"=>$cartSongslist[0]["song_image"],"quantity"=>$_POST["quantity"],"song_album_id"=>$cartSongslist[0]["song_album_id"],
                     "album_title"=>$cartSongslist[0]["album_title"],"artist_name"=>$cartSongslist[0]["artist_name"],"song_stock"=>$cartSongslist[0]["song_stock"],"song_format"=>$cartSongslist[0]["song_format"],"song_sale_id"=>$cartSongslist[0]["song_sale_id"],
                     "song_price"=>$cartSongslist[0]["song_price"],"sale_percentage"=>$cartSongslist[0]["sale_percentage"], "artist_genre"=>$cartSongslist[0]["artist_genre"]));
@@ -55,11 +56,12 @@
         }
     }
 
+    $cartAlbumslist = $portdao->retrieveCartAlbum($album_id);
     if(!empty($_GET["action2"])){
         switch($_GET["action2"]){
             case "add":
                 if(!empty($_POST["quantity"])){
-                    $cartAlbumslist = $portdao->retrieveCartAlbum($album_id);
+
                     $cartArray2 = array($cartAlbumslist[0]["album_title"]=>array("album_title"=>$cartAlbumslist[0]["album_title"],"album_id"=>$cartAlbumslist[0]["album_id"],"album_image"=>$cartAlbumslist[0]["album_image"],"quantity"=>$_POST["quantity"],"album_id"=>$cartAlbumslist[0]["album_id"],
                     "artist_name"=>$cartAlbumslist[0]["artist_name"],"album_stock"=>$cartAlbumslist[0]["album_stock"],"album_format"=>$cartAlbumslist[0]["album_format"],"album_sale_id"=>$cartAlbumslist[0]["album_sale_id"],
                     "album_price"=>$cartAlbumslist[0]["album_price"],"sale_percentage"=>$cartAlbumslist[0]["sale_percentage"], "artist_genre"=>$cartAlbumslist[0]["artist_genre"]));
@@ -96,6 +98,42 @@
                 unset($_SESSION["cart_item2"]);
             break;
         }
+    }
+
+    if(isset($_POST['order'])){
+        $order_quantity_s = 0;
+        $order_quantity_a = 0;
+        $order_list_s = null;
+        $order_list_a = null;
+        $order_user_id = $_SESSION['id'];
+            if(!empty($_SESSION["cart_item"])){
+                $cart_item = $_SESSION["cart_item"];
+                foreach($cart_item as $key => $value){
+                    $order_song_id = $value['song_id'];
+                    $order_quantity = $value['quantity'];
+                    $portdao->changeSongQuantity($order_song_id, $order_quantity);
+                    $order_quantity_s += $value['quantity'];
+                    $order_list_s[] = $value['song_id'];
+                    
+                }
+            }
+            if(!empty($_SESSION["cart_item2"])){
+                $cart_item2 = $_SESSION["cart_item2"];
+                foreach($cart_item2 as $key => $value){
+                    $order_album_id = $value['album_id'];
+                    $order_quantity2 = $value['quantity'];
+                    $portdao->changeAlbumQuantity($order_album_id, $order_quantity2);
+                    $order_quantity_a += $value['quantity'];
+                    $order_list_a[] = $value['album_id'];
+                }
+
+            }
+        $list_s = serialize($order_list_s);
+        $list_a = serialize($order_list_a);
+        $portdao->addOrder($order_quantity_s, $order_quantity_a, $list_s, $list_a, $order_user_id);
+
+
+        
     }
 
 
@@ -371,7 +409,7 @@
                                             <label for="promotional-code" class="control-label">Promotional code</label>
                                             <input id="promotional-code" class="form-control" type="text" name="promotional_code">
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                        <form action="" method="post"><button type="submit" name="order" class="btn btn-primary btn-block">Submit</button></form>
                                     </div>
                                 </section>
                                 <h3>Confirmation</h3>

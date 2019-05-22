@@ -14,6 +14,7 @@
         $rankA = $portdao->retrieveSoldRankingA();
         $newSonglist2 = $portdao->retrieveAllNewSong2();
         $newAlbumlist2 = $portdao->retrieveAllNewAlbum2();
+        $orderlist = $portdao->retrieveAllOrder();
 
 
     if(isset($_POST['submit'])){
@@ -288,14 +289,14 @@
                                             </tr>
                                         </thead>
                                              <?php
-                                                foreach($orderslistS as $key=>$value){
+                                                foreach($orderlist as $key=>$value){
                                                     echo "<tr>";
 
                                                         echo "<td>".$value['order_date']."</td>";
                                                         echo "<td>".$value['order_id']."</td>";
                                                         echo "<td>".$value['user_fname']." ".$value['user_lname']."</td>";
                                                         echo "<td>".$value['order_status']."</td>";
-                                                        echo "<td><a href='' role='button' class='btn'><i class='fas fa-angle-double-right'></i></a></td>";
+                                                        echo "<td><a href='index.php?list_id=".$value['order_id']."' role='button' class='btn'><i class='fas fa-angle-double-right'></i></a></td>";
 
                                                     echo "</tr>";
                                                 }
@@ -309,17 +310,49 @@
                                         <div class="table-responsive  text-white">
                                             <table class="table table-top-countries">
                                                 <tbody>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Type</th>
+                                                        <th>Name</th>
+                                                        <th>Stock</th>
+                                                    </tr>
+                                                </thead>
                                                     <?php
-                                                    foreach($orderslistS as $key=>$value){
-                                                        echo "<tr>";
-
-                                                            echo "<td>".$value['order_date']."</td>";
-                                                            echo "<td>".$value['order_id']."</td>";
-                                                            echo "<td>".$value['user_fname']." ".$value['user_lname']."</td>";
-                                                            echo "<td>".$value['order_status']."</td>";
-                                                            echo "<td><a href='' role='button' class='btn'><i class='fas fa-angle-double-right'></i></a></td>";
-
-                                                        echo "</tr>";
+                                                    if(isset($_GET["list_id"])){
+                                                        $orderlist2 = $portdao->retrieveAllOrder2($_GET["list_id"]);
+                                                        foreach($orderlist2 as $key=>$value){
+                                                            echo "Total QuantitY (Songs)  : ".$value['order_quantity_s']."";
+                                                            echo "<br>";
+                                                            echo "Total Quantity (Albums) : ".$value['order_quantity_a']."";
+                                                            if(!empty($value['order_list_s'])){
+                                                                $orderlist11 = unserialize($value['order_list_s']);
+                                                                foreach($orderlist11 as $key=>$value){
+                                                                    $song_id = $value[0];
+                                                                    $orderlist111 = $portdao->retrieveAllOrderSong($song_id);
+                                                                    foreach($orderlist111 as $key=>$value){
+                                                                        echo "<tr>";
+                                                                        echo "<td>Song</td>";
+                                                                        echo "<td>".$value['song_title']."</td>";
+                                                                        echo "<td>".$value['song_stock']."</td>";
+                                                                        echo "</tr>";
+                                                                    }
+                                                                }
+                                                            }
+                                                            if(!empty($value['order_list_a'])){
+                                                            $orderlist22 = unserialize($value['order_list_a']);
+                                                                foreach($orderlist22 as $key=>$value){
+                                                                    $album_id = $value[0];
+                                                                    $orderlist222 = $portdao->retrieveAllOrderAlbum($album_id);
+                                                                    foreach($orderlist222 as $key=>$value){
+                                                                        echo "<tr>";
+                                                                        echo "<td>".$value['album_id']."</td>";
+                                                                        echo "<td>".$value['album_title']."</td>";
+                                                                        echo "<td>".$value['album_stock']."</td>";
+                                                                        echo "</tr>";
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
                                                     }
                                                     ?>
                                                 </tbody>
