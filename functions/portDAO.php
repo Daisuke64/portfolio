@@ -45,7 +45,7 @@
             $end_date = date('Y-m-t');
             $sql = "SELECT * FROM songs 
             JOIN artists ON songs.artist_id = artists.artist_id 
-            JOIN albums ON songs.song_album_id = albums.album_id
+            LEFT JOIN albums ON songs.song_album_id = albums.album_id
             JOIN sales ON songs.song_sale_id = sales.sale_id
             WHERE song_date BETWEEN '$start_date' AND '$end_date' ORDER BY song_date DESC";
             $result = $this->conn->query($sql);
@@ -60,7 +60,7 @@
         public function retrieveAllNewSong2(){
             $sql = "SELECT * FROM songs 
             JOIN artists ON songs.artist_id = artists.artist_id 
-            JOIN albums ON songs.song_album_id = albums.album_id
+            LEFT JOIN albums ON songs.song_album_id = albums.album_id
             JOIN sales ON songs.song_sale_id = sales.sale_id
             WHERE song_status = 'A'
             ORDER BY song_date DESC";
@@ -107,7 +107,7 @@
         public function retrieveAllSong(){
             $sql = "SELECT * FROM songs 
             JOIN artists ON songs.artist_id = artists.artist_id 
-            JOIN albums ON songs.song_album_id = albums.album_id
+            LEFT JOIN albums ON songs.song_album_id = albums.album_id
             JOIN sales ON songs.song_sale_id = sales.sale_id
             ORDER BY song_title ASC";
             $result = $this->conn->query($sql);
@@ -148,7 +148,7 @@
         public function retrieveAllSalesSong(){
             $sql = "SELECT * FROM songs 
             JOIN artists ON songs.artist_id = artists.artist_id 
-            JOIN albums ON songs.song_album_id = albums.album_id
+            LEFT JOIN albums ON songs.song_album_id = albums.album_id
             JOIN sales ON songs.song_sale_id = sales.sale_id
             WHERE sale_id != 99
             ORDER BY song_title ASC";
@@ -179,7 +179,7 @@
         public function retrieveRankingS(){
             $sql = "SELECT * FROM songs 
             JOIN artists ON songs.artist_id = artists.artist_id 
-            JOIN albums ON songs.song_album_id = albums.album_id
+            LEFT JOIN albums ON songs.song_album_id = albums.album_id
             JOIN sales ON songs.song_sale_id = sales.sale_id
             ORDER BY song_sold DESC";
             $result = $this->conn->query($sql);
@@ -210,7 +210,7 @@
         public function retrieveSearchSong($search){
             $sql = "SELECT * FROM songs
             JOIN artists ON songs.artist_id = artists.artist_id 
-            JOIN albums ON songs.song_album_id = albums.album_id
+            LEFT JOIN albums ON songs.song_album_id = albums.album_id
             JOIN sales ON songs.song_sale_id = sales.sale_id
             WHERE song_title LIKE '%$search%' OR song_label LIKE '%$search%' OR album_title LIKE '%$search%'
             OR album_contents LIKE '%$search%' OR album_label LIKE '%$search%' OR artist_name LIKE '%$search%' 
@@ -246,7 +246,7 @@
         public function retrieveCartSong($song_id){
             $sql = "SELECT * FROM songs 
             JOIN artists ON songs.artist_id = artists.artist_id 
-            JOIN albums ON songs.song_album_id = albums.album_id
+            LEFT JOIN albums ON songs.song_album_id = albums.album_id
             JOIN sales ON songs.song_sale_id = sales.sale_id
             WHERE songs.song_id = '$song_id'
             ORDER BY song_title ASC";
@@ -323,7 +323,7 @@
             IF(sale_percentage != 0 , (song_sold * (song_price * sale_percentage)) , (song_sold * song_price)) AS rank
             FROM  songs
             JOIN artists ON songs.artist_id = artists.artist_id 
-            JOIN albums ON songs.song_album_id = albums.album_id
+            LEFT JOIN albums ON songs.song_album_id = albums.album_id
             JOIN sales ON songs.song_sale_id = sales.sale_id
             ORDER BY rank DESC";
             $result = $this->conn->query($sql);
@@ -381,14 +381,29 @@
             return $rows;
         }
 
-        public function addsong($song_image, $song_title, $song_date, $song_detail, $song_label, $song_price, $song_format, $song_stock, $song_sale, $song_album){
-            $sql = "INSERT INTO songs (song_image, song_title, song_date, song_detail, song_label, song_price, song_format, song_stock, song_sale, song_album) VALUES ('$song_image', '$song_title', '$song_date', '$song_detail', '$song_label', '$song_price', '$song_format', '$song_stock', '$song_sale', '$song_album')";
+        public function addSong($song_image, $song_title, $song_date, $song_detail, $song_label, $song_price, $song_format, $song_stock, $song_sale_id, $song_album_id, $artist_id){
+            $sql = "INSERT INTO songs (song_image, song_title, song_date, song_detail, song_label, song_price, song_format, song_stock, song_sale_id, song_album_id, artist_id) VALUES ('$song_image', '$song_title', '$song_date', '$song_detail', '$song_label', '$song_price', '$song_format', '$song_stock', '$song_sale_id', '$song_album_id', '$artist_id')";
             $result = $this->conn->query($sql);
         }
 
-        public function addartist($artist_name, $aritst_genre, $aritst_counrty, $aritst_detail){
-            $sql = "INSERT INTO artists (artist_name, aritst_genre, aritst_counrty, aritst_detail) VALUES ('$artist_name', '$aritst_genre', '$aritst_counrty', '$aritst_detail')";
+        public function addAlbum($album_image, $album_title, $album_date, $album_detail, $album_label, $album_price, $album_format, $album_stock, $album_sale_id, $album_contents, $artist_id){
+            $sql = "INSERT INTO albums (album_image, album_title, album_date, album_detail, album_label, album_price, album_format, album_stock, album_sale_id, album_contents, artist_id) VALUES ('$album_image', '$album_title', '$album_date', '$album_detail', '$album_label', '$album_price', '$album_format', '$album_stock', '$album_sale_id', '$album_contents', '$artist_id')";
             $result = $this->conn->query($sql);
+        }
+
+        public function addArtist($artist_name, $artist_genre, $artist_country, $artist_detail){
+            $sql = "INSERT INTO artists (artist_name, artist_genre, artist_country, artist_detail) VALUES ('$artist_name', '$artist_genre', '$artist_country', '$artist_detail')";
+            $result = $this->conn->query($sql);
+        }
+
+        public function retrieveAllArtistAddPart($artist_id){
+            $sql = "SELECT * FROM artists WHERE '$artist_id' = artist_id";
+            $result = $this->conn->query($sql);
+            $rows = array();
+            while($row=$result->fetch_assoc()){
+                $rows[] = $row;
+            }
+            return $rows;
         }
 
 
