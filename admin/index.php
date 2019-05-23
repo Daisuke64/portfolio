@@ -1,7 +1,7 @@
 <?php
     session_start();
     if($_SESSION['logstat'] !="Active"){
-        header('Location: logout.php');
+        header('Location: ../logout.php');
 		}
 
         require '../functions/portDAO.php';
@@ -276,7 +276,7 @@
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-8">
+                            <div class="col-lg-7">
                                 <div class="table-responsive table--no-card m-b-30">
                                     <table class="table table-borderless table-striped table-earning">
                                         <thead>
@@ -304,28 +304,31 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-5">
                                 <div class="au-card au-card--bg-blue au-card-top-countries m-b-30">
                                     <div class="au-card-inner">
                                         <div class="table-responsive  text-white">
-                                            <table class="table table-top-countries">
+                                            <table class="table table-top-countries text-center">
                                                 <tbody>
                                                 <thead>
                                                     <tr>
                                                         <th>Type</th>
                                                         <th>Name</th>
-                                                        <th>Stock</th>
+                                                        <th>Ordered Quantity</th>
                                                     </tr>
                                                 </thead>
                                                     <?php
                                                     if(isset($_GET["list_id"])){
+                                                        $orderQuantityS = null;
+                                                        $orderQuantityA = null;
                                                         $orderlist2 = $portdao->retrieveAllOrder2($_GET["list_id"]);
                                                         foreach($orderlist2 as $key=>$value){
-                                                            echo "Total QuantitY (Songs)  : ".$value['order_quantity_s']."";
-                                                            echo "<br>";
-                                                            echo "Total Quantity (Albums) : ".$value['order_quantity_a']."";
                                                             if(!empty($value['order_list_s'])){
                                                                 $orderlist11 = unserialize($value['order_list_s']);
+                                                                $orderS = unserialize($value['order_quantity_s']);
+                                                                foreach($orderS as $key=>$value){
+                                                                    $orderQuantityS = $value[0];
+                                                                    }
                                                                 foreach($orderlist11 as $key=>$value){
                                                                     $song_id = $value[0];
                                                                     $orderlist111 = $portdao->retrieveAllOrderSong($song_id);
@@ -333,21 +336,27 @@
                                                                         echo "<tr>";
                                                                         echo "<td>Song</td>";
                                                                         echo "<td>".$value['song_title']."</td>";
-                                                                        echo "<td>".$value['song_stock']."</td>";
+                                                                        echo "<td>".$orderQuantityS."</td>";
                                                                         echo "</tr>";
                                                                     }
                                                                 }
                                                             }
+                                                        }
+                                                        foreach($orderlist2 as $key=>$value){
                                                             if(!empty($value['order_list_a'])){
-                                                            $orderlist22 = unserialize($value['order_list_a']);
+                                                                $orderlist22 = unserialize($value['order_list_a']);
+                                                                $orderA = unserialize($value['order_quantity_a']);
+                                                                foreach($orderA as $key=>$value){
+                                                                    $orderQuantityA = $value[0];
+                                                                    }
                                                                 foreach($orderlist22 as $key=>$value){
                                                                     $album_id = $value[0];
                                                                     $orderlist222 = $portdao->retrieveAllOrderAlbum($album_id);
                                                                     foreach($orderlist222 as $key=>$value){
                                                                         echo "<tr>";
-                                                                        echo "<td>".$value['album_id']."</td>";
+                                                                        echo "<td>Album</td>";
                                                                         echo "<td>".$value['album_title']."</td>";
-                                                                        echo "<td>".$value['album_stock']."</td>";
+                                                                        echo "<td>".$orderQuantityA."</td>";
                                                                         echo "</tr>";
                                                                     }
                                                                 }
@@ -586,7 +595,7 @@
                             <div class="col-lg-6">
                                 <!-- TOP CAMPAIGN-->
                                 <div class="top-campaign">
-                                    <h3 class="title-3 m-b-30">Top Sales</h3>
+                                    <h3 class="title-3 m-b-30">Best Sales</h3>
                                     <div class="filters m-b-45">
                                         <form action="" method="post">
                                         <div class="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
