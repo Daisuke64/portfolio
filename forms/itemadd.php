@@ -1,4 +1,9 @@
 <?php
+      session_start();
+      if($_SESSION['logstat'] !="Active"){
+          header('Location: ../logout.php');
+      }
+      
       require '../functions/portDAO.php';
       $portdao = new PortAccessObject;
       $saleslist = $portdao->retrieveAllsaleAdd();
