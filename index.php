@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>BIG★HELP CD SHOP</title>
+    <title>BIG★HELP MUSIC SHOP</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -39,7 +39,19 @@
 			width: 1000px;
 		}
 
-		
+		#headline {
+			color: #158b2b;
+			font-size: 20px;
+			text-align: left;
+		}
+
+		#headline2 {
+			color: #158b2b;
+			font-size: 20px;
+			border-bottom: solid 3px #158b2b;
+		}
+
+
 		</style>
 		
   </head>
@@ -48,7 +60,7 @@
 	  
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light site-navbar-target" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.php">BIG★HELP<span>CD SHOP</span></a>
+	      <a class="navbar-brand" href="index.php">BIG★HELP<span>MUSIC SHOP</span></a>
 	      <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
@@ -56,19 +68,20 @@
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav nav ml-auto">
 	          <li class="nav-item"><a href="#home-section" class="nav-link"><span>Home</span></a></li>
-	          <li class="nav-item"><a href="#services-section" class="nav-link"><span>CDs</span></a></li>
-	          <li class="nav-item"><a href="#projects-section" class="nav-link"><span>Suggestions</span></a></li>
+	          <li class="nav-item"><a href="#services-section" class="nav-link"><span>Music</span></a></li>
+	          <!-- <li class="nav-item"><a href="#projects-section" class="nav-link"><span>Suggestions</span></a></li> -->
 	          <li class="nav-item"><a href="#about-section" class="nav-link"><span>About</span></a></li>
 	          <li class="nav-item"><a href="#blog-section" class="nav-link"><span>News</span></a></li>
 						<li class="nav-item"><a href="#contact-section" class="nav-link"><span>Contact</span></a></li>
-						<li class="nav-item"><a href="forms/cart.php" class="nav-link"><span><i class="fas fa-shopping-cart"></i>Cart</span></a></li>
+						<li class="nav-item"><a href="forms/cart.php" class="nav-link"><span><i class="fas fa-shopping-cart"></i> Cart</span></a></li>
+						<li class="nav-item"><a href="forms/order_history.php" class="nav-link"><span><i class="fas fa-history"></i> Order Histry</span></a></li>
 						<li class="nav-item"><a href="logout.php" class="nav-link"><span>Logout</span></a></li>
 	        </ul>
 	      </div>
 	    </div>
 	  </nav>
 	  <section id="home-section" class="hero">
-	  	<h3 class="vr" style="color: white;">Welcome to BIG★HELP CD SHOP</h3>
+	  	<h3 class="vr" style="color: white;">Welcome to BIG★HELP MUSIC SHOP</h3>
 		  <div class="home-slider js-fullheight owl-carousel">
 	      <div class="slider-item js-fullheight">
 	      	<div class="overlay"></div>
@@ -79,11 +92,11 @@
 	          	</div>
 		          <div class="one-forth d-flex js-fullheight align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
 		          	<div class="text">
-		          		<span class="subheading">Welcome to BIG★HELP CD SHOP</span>
+		          		<span class="subheading">Welcome to BIG★HELP MUSIC SHOP</span>
 			            <h1 class="mb-4 mt-3">Let <span>music</span> flow in <span>your heart</span> and enrich <span>your soul</span>.</h1>
 			            <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
 			            
-			            <p><a href="#" class="btn btn-primary px-5 py-3 mt-3">Learn More</a></p>
+			            <p><a href="#" class="btn btn-primary px-5 py-3 mt-3">Read More</a></p>
 		            </div>
 		          </div>
 	        	</div>
@@ -99,11 +112,11 @@
 	          	</div>
 		          <div class="one-forth d-flex js-fullheight align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
 		          	<div class="text">
-		          		<span class="subheading">Welcome to BIG☆HERO CD SHOP</span>
+		          		<span class="subheading">Welcome to BIG☆HELP MUSIC SHOP</span>
 			            <h1 class="mb-4 mt-3"><span>Music</span> is what I am. Everything else is what I do.</h1>
 			            <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.f</p>
 			            
-			            <p><a href="#" class="btn btn-primary px-5 py-3 mt-3">Learn More</a></p>
+			            <p><a href="#" class="btn btn-primary px-5 py-3 mt-3">Read More</a></p>
 		            </div>
 		          </div>
 	        	</div>
@@ -135,9 +148,9 @@
 
             </div>
           </div>
-          <div class="col-md-10 ftco-animate d-flex align-items-center table table-responsive" style="font-size: small; font-weight: bold;">
+          <div class="col-md-10 ftco-animate d-flex align-items-center table table-responsive m-0" style="font-size: small; font-weight: bold; background-image: url('images/background.jpg');">
             
-            <div class="tab-content pl-md-5" id="v-pills-tabContent" style="height: 800px;">
+            <div class="tab-content pl-md-5" id="v-pills-tabContent" style="height: 800px; background-image: url('images/background.jpg');">
 
               <div class="tab-pane fade show active py-5 p-3" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
 								<?php require_once 'tables/search.php'; ?>
@@ -217,11 +230,11 @@
     	</div>
     </section>
 
-    <section class="ftco-section ftco-project bg-light" id="projects-section">
+    <section class="ftco-section ftco-project" id="projects-section"  style="background-image: url('images/background.jpg');">
     	<div class="container px-md-5">
     		<div class="row justify-content-center pb-5">
           <div class="col-md-12 heading-section text-center ftco-animate">
-          	<span class="subheading">Carefully selected</span>
+          	<span>Carefully selected</span>
             <h2 class="mb-4">Our Reccomendation</h2>
             <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
           </div>
@@ -313,7 +326,7 @@
     				<div class="py-md-5">
 	    				<div class="row justify-content-start pb-3">
 			          <div class="col-md-12 heading-section ftco-animate text-white">
-			          	<span class="subheading">Welcome to BIG★HELP CD SHOP</span>
+			          	<span class="subheading">Welcome to BIG★HELP MUSIC SHOP</span>
 			            <h2 class="mb-4" style="font-size: 34px; text-transform: capitalize;">We Are The Super Music Agency</h2>
 			            <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine.</p>
 									<p>I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now. </p>
@@ -351,7 +364,7 @@
 							</div>
 							<div class="text d-flex align-items-center pt-3 text-center">
 								<div>
-									<h3 class="mb-2">Jason Voorhees</h3>
+									<h3 class="mb-2">Daisuke Nakamura</h3>
 									<span class="position mb-4">CEO, Founder</span>
 									<div class="faded">
 										<ul class="ftco-social text-center">
@@ -372,7 +385,7 @@
 							</div>
 							<div class="text d-flex align-items-center pt-3 text-center">
 								<div>
-									<h3 class="mb-2">Predator</h3>
+									<h3 class="mb-2">Daisuke Nakamura</h3>
 									<span class="position mb-4">General Manager</span>
 									<div class="faded">
 										<ul class="ftco-social text-center">
@@ -393,7 +406,7 @@
 							</div>
 							<div class="text d-flex align-items-center pt-3 text-center">
 								<div>
-									<h3 class="mb-2">Sadako</h3>
+									<h3 class="mb-2">Daisuke Nakamura</h3>
 									<span class="position mb-4">Store Manager</span>
 									<div class="faded">
 										<ul class="ftco-social text-center">
@@ -414,7 +427,7 @@
 							</div>
 							<div class="text d-flex align-items-center pt-3 text-center">
 								<div>
-									<h3 class="mb-2">E.T.</h3>
+									<h3 class="mb-2">Daisuke Nakamura</h3>
 									<span class="position mb-4">Assistant</span>
 									<div class="faded">
 										<ul class="ftco-social text-center">
@@ -432,11 +445,11 @@
     	</div>
     </section>
 
-    <section class="ftco-section bg-light" id="blog-section">
+    <section class="ftco-section" id="blog-section" style="background-image: url('images/background.jpg');">
       <div class="container">
         <div class="row justify-content-center mb-5 pb-5">
           <div class="col-md-7 heading-section text-center ftco-animate">
-            <span class="subheading">Sales Information</span>
+            <span>Sales Information</span>
             <h2 class="mb-4">News</h2>
             <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
           </div>
@@ -606,7 +619,7 @@
         <div class="row mb-5">
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">About BIG★HELP CD SHOP</h2>
+              <h2 class="ftco-heading-2">About BIG★HELP MUSIC SHOP</h2>
               <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                 <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
@@ -621,11 +634,11 @@
               <ul class="list-unstyled">
                 <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Home</a></li>
                 <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>About</a></li>
-                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>CDs</a></li>
-								<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Suggestions</a></li>
+                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Music</a></li>
 								<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>News</a></li>
 								<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Contact</a></li>
-								<li><a href="#"><span class="icon-long-arrow-right mr-2"></span><i class="fas fa-shopping-cart"></i>Cart</a></li>
+								<li><a href="#"><span class="icon-long-arrow-right mr-2"></span><i class="fas fa-shopping-cart"></i> Cart</a></li>
+								<li><a href="#"><span class="icon-long-arrow-right mr-2"></span><i class="fas fa-history"></i> Order History</a></li>
 								<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Logout</a></li>
               </ul>
             </div>

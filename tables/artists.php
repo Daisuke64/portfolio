@@ -5,7 +5,7 @@ $artistslist = $portdao->retrieveAllArtist();
 
 ?>
 
-<h4> Artists</h4>										
+<h4 id="headline2" class="pb-2"> Artists</h4>										
 <table class="table table-striped table-bordered table-sm text-center" id="tables">
 
     <div class="p-2 bg-primary"><h4></h4></div>
@@ -38,7 +38,7 @@ $artistslist = $portdao->retrieveAllArtist();
                 echo "<td>".$value['artist_name']."</td>";
                 echo "<td>".$value['artist_genre']."</td>";
                 echo "<td>".$value['artist_country']."</td>";
-                echo "<td><a href='' role='button' class='btn'><i class='fas fa-angle-double-right'></i></a></td>";
+                echo "<td><button type='button' class='btn btn-primary' data-toggle='popover' title='' data-content='Explanation:".$value['artist_detail']."'><i class='fas fa-angle-double-right'></i></button></td>";
                 echo "<td>".$value['song_titles']."</td>";
                 echo "<td><a href='' role='button' class='btn'><i class='fas fa-search'></i></a></td>";
                 echo "<td>".$value['album_titles']."</td>";
@@ -48,3 +48,19 @@ $artistslist = $portdao->retrieveAllArtist();
         ?>
     </tbody>       
 </table>
+
+<ul class="pagination ">
+  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+  <li class="page-item"><a class="page-link" href="#">1</a></li>
+  <li class="page-item active"><a class="page-link" href="#">2</a></li>
+  <li class="page-item"><a class="page-link" href="#">3</a></li>
+  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+</ul>
+
+<script>
+(function() {
+  window.addEventListener("load", function () {
+    $('[data-toggle="popover"]').popover();
+  });
+})();
+</script>

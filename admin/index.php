@@ -49,6 +49,11 @@
         }
     }
 
+    if(isset($_GET['edit'])){
+        $edit_id = $_GET['edit'];
+        $portdao->editOrderStatus($edit_id);
+    }
+
 
 ?>
 
@@ -286,6 +291,7 @@
                                                 <th>User</th>
                                                 <th>Order Status</th>
                                                 <th>Order List</th>
+                                                <th>Finished</th>
                                             </tr>
                                         </thead>
                                              <?php
@@ -296,7 +302,8 @@
                                                         echo "<td>".$value['order_id']."</td>";
                                                         echo "<td>".$value['user_fname']." ".$value['user_lname']."</td>";
                                                         echo "<td>".$value['order_status']."</td>";
-                                                        echo "<td><a href='index.php?list_id=".$value['order_id']."' role='button' class='btn'><i class='fas fa-angle-double-right'></i></a></td>";
+                                                        echo "<td><a href='index.php?list_id=".$value['order_id']."' role='button' class='btn'><i class='fas fa-list'></i></a></td>";
+                                                        echo "<td><a href='index.php?edit=".$value['order_id']."' role='button' class='btn'><i class='fas fa-check'></i></a></td>";
 
                                                     echo "</tr>";
                                                 }
@@ -318,6 +325,7 @@
                                                     </tr>
                                                 </thead>
                                                     <?php
+                                                    $total = 0;
                                                     if(isset($_GET["list_id"])){
                                                         $orderQuantityS = null;
                                                         $orderQuantityA = null;
@@ -752,7 +760,7 @@
                                                         }
                                                         echo "<td>".$value['song_format']."</td>";
                                                         echo "<td>".$value['song_stock']."</td>";
-                                                        echo "<td><a href='' role='button' class=''><i class='fas fa-angle-double-right'></i></a></td>";
+                                                        echo "<td><button type='button' class='btn btn-primary' data-toggle='popover' title='Label:".$value['song_label']."' data-content='Explanation:".$value['song_detail']."'><i class='fas fa-angle-double-right'></i></button></td>";
                                                         echo "<td>";
                                                         echo "<label class='au-checkbox'>";
                                                             echo "<input type='checkbox' name='check_s' value='".$value['song_id']."'>";
@@ -779,7 +787,7 @@
                                                         }
                                                         echo "<td>".$value['album_format']."</td>";
                                                         echo "<td>".$value['album_stock']."</td>";
-                                                        echo "<td><a href='' role='button' class=''><i class='fas fa-angle-double-right'></i></a></td>";
+                                                        echo "<td><button type='button' class='btn btn-primary' data-toggle='popover' title='Label:".$value['album_label']."' data-content='".$value['album_contents']."'><i class='fas fa-angle-double-right'></i></button></td>";
                                                         echo "<td>";
                                                         echo "<label class='au-checkbox'>";
                                                             echo "<input type='checkbox' name='check_a' value='".$value['album_id']."'>";
@@ -811,7 +819,7 @@
                                                 }
                                                 echo "<td>".$value['song_format']."</td>";
                                                 echo "<td>".$value['song_stock']."</td>";
-                                                echo "<td><a href='' role='button' class=''><i class='fas fa-angle-double-right'></i></a></td>";
+                                                echo "<td><button type='button' class='btn btn-primary' data-toggle='popover' title='Label:".$value['song_label']."' data-content='Explanation:".$value['song_detail']."'><i class='fas fa-angle-double-right'></i></button></td>";
                                                 echo "<td>";
                                                 echo "<label class='au-checkbox'>";
                                                     echo "<input type='checkbox' name='check_s' value='".$value['song_id']."'>";
@@ -842,6 +850,14 @@
             </div>
 
     </div>
+
+    <script>
+    (function() {
+    window.addEventListener("load", function () {
+        $('[data-toggle="popover"]').popover();
+    });
+    })();
+    </script>
 
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>

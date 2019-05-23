@@ -6,10 +6,10 @@ $rankAlbumlist = $portdao->retrieveRankingA();
 
 ?>
 
-<h4> Hit Chart</h4>
+<h4 id="headline2" class="pb-2"> Hit Chart</h4>
 
 <table class="table table-striped table-bordered table-sm text-center" id="tables">
-
+<h4 id="headline" class="text-center"> Songs</h4>
   <div class="p-2 bg-primary"><h4></h4></div>
 
     <thead>
@@ -51,7 +51,7 @@ $rankAlbumlist = $portdao->retrieveRankingA();
                 echo "<td>".$value['song_price']."</td>";
             }
             echo "<td>".$value['song_format']."</td>";
-            echo "<td><a href='' role='button' class='btn'><i class='fas fa-angle-double-right'></i></a></td>";
+            echo "<td><button type='button' class='btn btn-primary' data-toggle='popover' title='Label:".$value['song_label']."' data-content='Explanation:".$value['song_detail']."'><i class='fas fa-angle-double-right'></i></button></td>";
             echo "<td><input type='number' value='0' min=0 max='".$value["song_stock"]."' name='quantity' style='width: 50px;'></td>";
             echo "<td><input type='submit' value='Cart' style='width: 80px;' class='btn btn-secondary'></td>";
             echo "</tr>";
@@ -64,7 +64,7 @@ $rankAlbumlist = $portdao->retrieveRankingA();
 
 
     <table class="table table-striped table-bordered table-sm text-center">
-
+    <h4 id="headline" class="text-center"> Albums</h4>
     <div class="p-2 bg-primary"><h4></h4></div>
 
     <thead>
@@ -102,7 +102,7 @@ $rankAlbumlist = $portdao->retrieveRankingA();
                 echo "<td>".$value['album_price']."</td>";
             }
             echo "<td>".$value['album_format']."</td>";
-            echo "<td><a href='' role='button' class='btn'><i class='fas fa-angle-double-right'></i></a></td>";
+            echo "<td><button type='button' class='btn btn-primary' data-toggle='popover' title='Label:".$value['album_label']."' data-content='".$value['album_contents']."'><i class='fas fa-angle-double-right'></i></button></td>";
             echo "<td><input type='number' value='0' min=0 max='".$value["album_stock"]."' name='quantity' style='width: 50px;'></td>";
             echo "<td><input type='submit' value='Cart' style='width: 80px;' class='btn btn-secondary'></td>";
             echo "</tr>";
@@ -121,3 +121,11 @@ $rankAlbumlist = $portdao->retrieveRankingA();
   <li class="page-item"><a class="page-link" href="#">3</a></li>
   <li class="page-item"><a class="page-link" href="#">Next</a></li>
 </ul>
+
+<script>
+(function() {
+  window.addEventListener("load", function () {
+    $('[data-toggle="popover"]').popover();
+  });
+})();
+</script>

@@ -62,7 +62,7 @@
 						<div class="content">
 							<div class="header">
 								<div class="logo text-center"></div>
-								<p class="lead">Welcome to BIG★HELP CD SHOP</p>
+								<p class="lead">Welcome to BIG★HELP MUSIC SHOP</p>
 								<p class="lead">Login to your account</p>
 								<?php if(!empty($_GET['massage'])){
 									echo "<h1>".$_GET['massage']."</1>";

@@ -101,8 +101,8 @@
     }
 
     if(isset($_POST['order'])){
-        $order_quantity_s = 0;
-        $order_quantity_a = 0;
+        $order_quantity_s = null;
+        $order_quantity_a = null;
         $order_list_s = null;
         $order_list_a = null;
         $order_user_id = $_SESSION['id'];
@@ -112,7 +112,7 @@
                     $order_song_id = $value['song_id'];
                     $order_quantity = $value['quantity'];
                     $portdao->changeSongQuantity($order_song_id, $order_quantity);
-                    $order_quantity_s += $value['quantity'];
+                    $order_quantity_s[] = $value['quantity'];
                     $order_list_s[] = $value['song_id'];
                     
                 }
@@ -123,18 +123,33 @@
                     $order_album_id = $value['album_id'];
                     $order_quantity2 = $value['quantity'];
                     $portdao->changeAlbumQuantity($order_album_id, $order_quantity2);
-                    $order_quantity_a += $value['quantity'];
+                    $order_quantity_a[] = $value['quantity'];
                     $order_list_a[] = $value['album_id'];
                 }
 
             }
         $list_s = serialize($order_list_s);
         $list_a = serialize($order_list_a);
-        $portdao->addOrder($order_quantity_s, $order_quantity_a, $list_s, $list_a, $order_user_id);
+        $quantity_s = serialize($order_quantity_s);
+        $quantity_a = serialize($order_quantity_a);
+        $portdao->addOrder($quantity_s, $quantity_a, $list_s, $list_a, $order_user_id);
 
 
         
     }
+    if(isset($_POST['change'])){
+        
+        $user_fname = $_POST['user_fname'];
+        $user_lname = $_POST['user_lname'];
+        $user_address = $_POST['user_address'];
+        $user_phone = $_POST['user_phone'];
+        $user_email = $_POST['user_email'];
+        $portdao->changeUser($user_fname, $user_lname, $user_address, $user_phone, $user_email, $_SESSION['id']);
+        header('refresh: 0');
+
+    }
+
+
 
 
 ?>
@@ -215,9 +230,16 @@
                 <h4>Shopping Cart</h4> 
                 <p>Thank you for your purchase!</p> 
         </div>
-
+        <?php
+        if(isset($_POST['order'])){
+            echo "<div class='text-center'>";
+            echo "<h2>Congratulations! Your Order is accepted.</h2>";
+            echo "</div>";
+            }
+        ?>
         <div class="container text-center">
             <a href="../index.php#services-section" role="button" class="btn btn-info">←　Continue shopping</a>
+            <a href="cart.php?action=empty&action2=empty" role="button" class="btn btn-danger">Empty your cart</a>
             
         </div>
 
@@ -249,6 +271,7 @@
                                                 <tbody>
                                                     
                                                     <?php
+                                                    $total = 0;
                                                     if(isset($_SESSION['cart_item'])){
                                                         foreach($_SESSION['cart_item'] as $key=>$value){
                                                             echo "<td><img src='../".$value['song_image']."' alt='".$value['song_title']."' width='50' height='50'></td>";
@@ -262,8 +285,10 @@
                                                             echo "<td>".$value['song_format']."</td>";
                                                             if($value['song_sale_id'] != 99){
                                                                 echo "<td>".(number_format($value['song_price'] * $value['sale_percentage'],2))." ←".$value['song_price']."<br>On Sale</td>";
+                                                                $total += (number_format($value['song_price'] * $value['sale_percentage'],2));
                                                             }else{
                                                                 echo "<td>".$value['song_price']."</td>";
+                                                                $total += $value['song_price'];
                                                             }
                                                             echo "<td>".$value['quantity']."</td>";
                                                             echo "<td><a href='cart.php?action=remove&id=".$value["song_id"]."' role='button' class='btn btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i></a></td>";
@@ -280,14 +305,19 @@
                                                             echo "<td>".$value['album_format']."</td>";
                                                             if($value['album_sale_id'] != 99){
                                                                 echo "<td>".(number_format($value['album_price'] * $value['sale_percentage'],2))." ←".$value['album_price']."<br>On Sale</td>";
+                                                                $total += (number_format($value['album_price'] * $value['sale_percentage'],2));
                                                             }else{
                                                                 echo "<td>".$value['album_price']."</td>";
+                                                                $total += $value['album_price'];
                                                             }
                                                             echo "<td>".$value['quantity']."</td>";
                                                             echo "<td><a href='cart.php?action2=remove&id=".$value["album_id"]."' role='button' class='btn btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i></a></td>";
                                                             echo "</tr>";
+                                                            
                                                         }
                                                     }
+
+                                                    echo "<div class='pull-right'><h4>Total Price : ".$total."</h4></div>";
                                                     ?>
                                                     </form>
                                                 </tbody>    
@@ -299,10 +329,11 @@
                                 <h3>Delivery Details</h3>
                                 <section>
                                     <h3 class="product-cart-dn">Shopping</h3>
-                                    <div class="product-delivary">
+                                    <div class="product-delivary row">
+                                    <form action="" method="post">
                                         <div class="form-group">
                                             <label for="user_fname" class="form-label">First name *</label>
-                                            <input id="user_fname" name="" value="<?php echo ($userslist[0]['user_fname']);?>" type="text" class="form-control">
+                                            <input id="user_fname" name="user_fname" value="<?php echo ($userslist[0]['user_fname']);?>" type="text" class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label for="user_lname" class="form-label">Last name *</label>
@@ -321,9 +352,9 @@
                                             <input id="user_email" name="user_email" value="<?php echo ($userslist[0]['user_email']);?>" type="text" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <label for="user_password" class="form-label">Password #</label>
-                                            <input id="user_password" name="user_password" value="<?php echo ($userslist[0]['user_password']);?>" type="password" class="form-control phone">
+                                            <button type="submit" name="change" class="btn btn-success btn-block pull-right">Update</button>
                                         </div>
+                                    </form>
                                     </div>
                                 </section>
                                 <h3>Payment Details</h3>
@@ -409,16 +440,16 @@
                                             <label for="promotional-code" class="control-label">Promotional code</label>
                                             <input id="promotional-code" class="form-control" type="text" name="promotional_code">
                                         </div>
-                                        <form action="" method="post"><button type="submit" name="order" class="btn btn-primary btn-block">Submit</button></form>
+                                        
                                     </div>
                                 </section>
                                 <h3>Confirmation</h3>
-                                <section>
+                                <section id="ordered">
                                     <div class="product-confarmation">
-                                        <h2>Congratulations! Your Order is accepted.</h2>
+                                        <h2>Pease Check the information you have registered before pushing this botton!</h2>
                                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
                                             it to make a type specimen book.</p>
-                                        <button class="btn btn-primary m-y">Track Order</button>
+                                        <form action="" method="post"><button type="submit" name="order" class="btn btn-primary btn-block">Submit</button></form>
                                     </div>
                                 </section>
                             </div>

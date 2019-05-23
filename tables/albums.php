@@ -5,7 +5,7 @@ $albumslist = $portdao->retrieveAllAlbum();
 
 ?>
 
-<h4>Albums</h4>										
+<h4 id="headline2" class="pb-2"> Albums</h4>									
 <table class="table table-striped table-bordered table-sm text-center" id="tables">
 
     <div class="p-2 bg-primary"><h4></h4></div>
@@ -49,7 +49,7 @@ $albumslist = $portdao->retrieveAllAlbum();
                     echo "<td>".$value['album_price']."</td>";
                 }
                 echo "<td>".$value['album_format']."</td>";
-                echo "<td><a href='' role='button' class='btn'><i class='fas fa-angle-double-right'></i></a></td>";
+                echo "<td><button type='button' class='btn btn-primary' data-toggle='popover' title='Label:".$value['album_label']."' data-content='".$value['album_contents']."'><i class='fas fa-angle-double-right'></i></button></td>";
                 echo "<td><input type='number' value='0' min=0 max='".$value["album_stock"]."' name='quantity' style='width: 50px;'></td>";
                 echo "<td><input type='submit' value='Cart' style='width: 80px;' class='btn btn-secondary'></td>";
                 echo "</tr>";
@@ -66,3 +66,11 @@ $albumslist = $portdao->retrieveAllAlbum();
   <li class="page-item"><a class="page-link" href="#">3</a></li>
   <li class="page-item"><a class="page-link" href="#">Next</a></li>
 </ul>
+
+<script>
+(function() {
+  window.addEventListener("load", function () {
+    $('[data-toggle="popover"]').popover();
+  });
+})();
+</script>

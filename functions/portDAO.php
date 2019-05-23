@@ -452,16 +452,16 @@
             $result = $this->conn->query($sql);
         }
 
-        public function addOrder($order_quantity_s, $order_quantity_a, $list_s, $list_a, $order_user_id){
+        public function addOrder($quantity_s, $quantity_a, $list_s, $list_a, $order_user_id){
             $order_date = date('Y-m-d');
-            $sql = "INSERT INTO orders (order_quantity_s, order_quantity_a, order_list_s, order_list_a, order_user_id, order_date) VALUES ('$order_quantity_s', '$order_quantity_a', '$list_s', '$list_a', '$order_user_id', '$order_date')";
+            $sql = "INSERT INTO orders (order_quantity_s, order_quantity_a, order_list_s, order_list_a, order_user_id, order_date) VALUES ('$quantity_s', '$quantity_a', '$list_s', '$list_a', '$order_user_id', '$order_date')";
             $result = $this->conn->query($sql);
         }
 
         public function retrieveAllOrder(){
             $sql = "SELECT * ,(order_quantity_s + order_quantity_a) AS total_quantity FROM orders
             JOIN users ON users.user_id = orders.order_user_id
-            ORDER BY order_date DESC";
+            ORDER BY order_date , order_status DESC";
             $result = $this->conn->query($sql);
             $rows = array();
             while($row=$result->fetch_assoc()){
@@ -481,7 +481,9 @@
         }
 
         public function retrieveAllOrderSong($song_id){
-            $sql = "SELECT * FROM songs WHERE song_id = $song_id";
+            $sql = "SELECT * FROM songs 
+            JOIN sales ON songs.song_sale_id = sales.sale_id
+            WHERE song_id = $song_id";
             $result = $this->conn->query($sql);
             $rows = array();
             while($row=$result->fetch_assoc()){
@@ -491,7 +493,9 @@
         }
 
         public function retrieveAllOrderAlbum($album_id){
-            $sql = "SELECT * FROM albums WHERE album_id = $album_id";
+            $sql = "SELECT * FROM albums 
+            JOIN sales ON albums.album_sale_id = sales.sale_id
+            WHERE album_id = $album_id";
             $result = $this->conn->query($sql);
             $rows = array();
             while($row=$result->fetch_assoc()){
@@ -500,8 +504,30 @@
             return $rows;
         }
 
+        public function changeUser($user_fname, $user_lname, $user_address, $user_phone, $user_email, $user_id){
+            $sql = "UPDATE users SET user_fname = '$user_fname', user_lname = '$user_lname', user_address = '$user_address', user_phone = '$user_phone', user_email = '$user_email' 
+            WHERE user_id = '$user_id'";
+            $result = $this->conn->query($sql);
+        }
         
+        public function retrieveAllOrderPart($user_id){
+            $sql = "SELECT * ,(order_quantity_s + order_quantity_a) AS total_quantity FROM orders
+            JOIN users ON users.user_id = orders.order_user_id
+            WHERE orders.order_user_id = '$user_id'
+            ORDER BY order_date DESC";
+            $result = $this->conn->query($sql);
+            $rows = array();
+            while($row=$result->fetch_assoc()){
+                $rows[] = $row;
+            }
+            return $rows;
+        }
 
+        public function editOrderStatus($edit_id){
+            $sql = "UPDATE orders SET order_status = 'Completed'
+            WHERE order_id = '$edit_id'";
+            $result = $this->conn->query($sql);
+        }
 
                
     }
