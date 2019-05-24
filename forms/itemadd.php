@@ -27,6 +27,7 @@
         $song_album_id = $_POST['album'];
         $artist_id = $_POST['artist'];
         $portdao->addSong($song_image, $song_title, $song_date, $song_detail, $song_label, $song_price, $song_format, $song_stock, $song_sale_id, $song_album_id, $artist_id, $tmp_file_name, $directory);
+        header('refresh: 0');
       }
 
       if(isset($_POST['add_a'])){
@@ -45,6 +46,7 @@
         $album_contents = $_POST['contents'];
         $artist_id = $_POST['artist'];
         $portdao->addAlbum($album_image, $album_title, $album_date, $album_detail, $album_label, $album_price, $album_format, $album_stock, $album_sale_id, $album_contents, $artist_id, $tmp_file_name, $directory);
+        header('refresh: 0');
       }
 
       if(isset($_POST['add_art'])){
@@ -53,6 +55,7 @@
         $artist_country = $_POST['artist_country'];
         $artist_detail = $_POST['artist_detail'];
         $portdao->addArtist($artist_name, $artist_genre, $artist_country, $artist_detail);
+        header('refresh: 0');
       }
       
 

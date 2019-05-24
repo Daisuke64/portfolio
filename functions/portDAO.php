@@ -134,7 +134,9 @@
         }
 
         public function retrieveAllArtist(){
-            $sql = "SELECT *  , GROUP_CONCAT(DISTINCT song_title ORDER BY song_date ASC  SEPARATOR '<br/>') AS song_titles, GROUP_CONCAT(album_title ORDER BY album_date ASC  SEPARATOR '<br/>') AS album_titles  FROM artists JOIN songs ON artists.artist_id = songs.artist_id JOIN albums ON albums.artist_id = artists.artist_id GROUP BY artist_name ORDER BY artist_name ASC";
+            $sql = "SELECT *  , GROUP_CONCAT(DISTINCT song_title ORDER BY song_date ASC  SEPARATOR '<br/>') AS song_titles, GROUP_CONCAT(album_title ORDER BY album_date ASC  SEPARATOR '<br/>') AS album_titles  
+            FROM artists LEFT JOIN songs ON artists.artist_id = songs.artist_id LEFT JOIN albums ON albums.artist_id = artists.artist_id 
+            GROUP BY artist_name ORDER BY artist_name ASC";
             $result = $this->conn->query($sql);
             $rows = array();
 

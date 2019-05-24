@@ -74,7 +74,7 @@
 	          <li class="nav-item"><a href="#blog-section" class="nav-link"><span>News</span></a></li>
 						<li class="nav-item"><a href="#contact-section" class="nav-link"><span>Contact</span></a></li>
 						<li class="nav-item"><a href="forms/cart.php" class="nav-link"><span><i class="fas fa-shopping-cart"></i> Cart</span></a></li>
-						<li class="nav-item"><a href="forms/order_history.php" class="nav-link"><span><i class="fas fa-history"></i> Order Histry</span></a></li>
+						<li class="nav-item"><a href="forms/order_history.php" class="nav-link"><span><i class="fas fa-history"></i> Order History</span></a></li>
 						<li class="nav-item"><a href="logout.php" class="nav-link"><span>Logout</span></a></li>
 	        </ul>
 	      </div>
@@ -247,8 +247,8 @@
 		    					<div class="img">
 				    				<img src="images/project-1.jpg" class="img-fluid" alt="Colorlib Template">
 				    				<div class="text px-4">
-				    					<h3><a href="#">Work Name</a></h3>
-				    					<span>Web Design</span>
+				    					<h3><a href="#">Reflections</a></h3>
+				    					<span>MisterWives</span>
 				    				</div>
 			    				</div>
 		    				</div>
@@ -258,8 +258,8 @@
 		    					<div class="img">
 				    				<img src="images/project-2.jpg" class="img-fluid" alt="Colorlib Template">
 				    				<div class="text px-4">
-				    					<h3><a href="#">Work Name</a></h3>
-				    					<span>Web Design</span>
+				    					<h3><a href="#">Here With Me</a></h3>
+				    					<span>Marshmello/CHVRCHES</span>
 				    				</div>
 			    				</div>
 		    				</div>
@@ -269,8 +269,8 @@
 		    					<div class="img">
 				    				<img src="images/project-3.jpg" class="img-fluid" alt="Colorlib Template">
 				    				<div class="text px-4">
-				    					<h3><a href="#">Work Name</a></h3>
-				    					<span>Web Design</span>
+				    					<h3><a href="#">Shake,Shiver,Moan</a></h3>
+				    					<span>22-20s</span>
 				    				</div>
 			    				</div>
 		    				</div>
@@ -280,8 +280,8 @@
 		    					<div class="img">
 				    				<img src="images/project-4.jpg" class="img-fluid" alt="Colorlib Template">
 				    				<div class="text px-4">
-				    					<h3><a href="#">Work Name</a></h3>
-				    					<span>Web Design</span>
+				    					<h3><a href="#">The Story Of The Impossible</a></h3>
+				    					<span>Peter Von Poechi</span>
 				    				</div>
 			    				</div>
 		    				</div>
@@ -291,8 +291,8 @@
 		    					<div class="img">
 				    				<img src="images/project-5.jpg" class="img-fluid" alt="Colorlib Template">
 				    				<div class="text px-4">
-				    					<h3><a href="#">Work Name</a></h3>
-				    					<span>Web Design</span>
+				    					<h3><a href="#">Love Myself</a></h3>
+				    					<span>Hailee Steinfeld</span>
 				    				</div>
 			    				</div>
 		    				</div>
@@ -302,8 +302,8 @@
 		    					<div class="img">
 				    				<img src="images/project-6.jpg" class="img-fluid" alt="Colorlib Template">
 				    				<div class="text px-4">
-				    					<h3><a href="#">Work Name</a></h3>
-				    					<span>Web Design</span>
+				    					<h3><a href="#">Wake Me Up</a></h3>
+				    					<span>Avicii</span>
 				    				</div>
 			    				</div>
 		    				</div>

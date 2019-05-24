@@ -11,7 +11,7 @@
         $user_email = $_POST['user_email'];
         $user_password = md5($_POST['user_password']);
         $portdao->adduser($user_fname, $user_lname, $user_address, $user_phone, $user_email, $user_password);
-        $massage = "Your Restration Is Complete!";
+        $massage = "Your Registration Is Complete!";
         header ('location: ../login.php?massage='.$massage);
       }
 
