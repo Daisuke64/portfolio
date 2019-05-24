@@ -321,7 +321,7 @@
         }
 
         public function retrieveSoldRankingS(){
-            $sql = "SELECT song_title, album_title, 
+            $sql = "SELECT *, 
             IF(sale_percentage != 0 , (song_sold * (song_price * sale_percentage)) , (song_sold * song_price)) AS rank
             FROM  songs
             JOIN artists ON songs.artist_id = artists.artist_id 
@@ -338,7 +338,7 @@
         }
 
         public function retrieveSoldRankingA(){
-            $sql = "SELECT album_title, 
+            $sql = "SELECT *, 
             IF(sale_percentage != 0 , (album_sold * (album_price * sale_percentage)) , (album_sold * album_price)) AS rank
             FROM  albums
             JOIN artists ON albums.artist_id = artists.artist_id 

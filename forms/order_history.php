@@ -147,9 +147,11 @@
                                                     if(isset($_GET["list_id"])){
                                                         $orderQuantityS = null;
                                                         $orderQuantityA = null;
+                                                        $i_S = null;
+                                                        $i_A = null;
                                                         $orderlist2 = $portdao->retrieveAllOrder2($_GET["list_id"]);
                                                         foreach($orderlist2 as $key=>$value){
-                                                            if(!empty($value['order_list_s'])){
+                                                            if(!($value['order_list_s'] == "N;")){
                                                                 $orderlist11 = unserialize($value['order_list_s']);
                                                                 $orderS = unserialize($value['order_quantity_s']);
                                                                 foreach($orderS as $key=>$value){
@@ -168,7 +170,7 @@
                                                                           $total += (number_format($value['song_price'] * $value['sale_percentage'],2));
                                                                         }else{
                                                                             echo "<td>".$value['song_price']."</td>";
-                                                                            $total += $value['song_price'];
+                                                                            $total += $value['song_price']
                                                                         }
                                                                         echo "<td>".$orderQuantityS."</td>";
                                                                         echo "</tr>";
@@ -177,7 +179,7 @@
                                                             }
                                                         }
                                                         foreach($orderlist2 as $key=>$value){
-                                                            if(!empty($value['order_list_a'])){
+                                                            if(!($value['order_list_a'] == "N;")){
                                                                 $orderlist22 = unserialize($value['order_list_a']);
                                                                 $orderA = unserialize($value['order_quantity_a']);
                                                                 foreach($orderA as $key=>$value){

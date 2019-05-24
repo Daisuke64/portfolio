@@ -331,7 +331,7 @@
                                                         $orderQuantityA = null;
                                                         $orderlist2 = $portdao->retrieveAllOrder2($_GET["list_id"]);
                                                         foreach($orderlist2 as $key=>$value){
-                                                            if(!empty($value['order_list_s'])){
+                                                            if(!($value['order_list_s'] == "N;")){
                                                                 $orderlist11 = unserialize($value['order_list_s']);
                                                                 $orderS = unserialize($value['order_quantity_s']);
                                                                 foreach($orderS as $key=>$value){
@@ -351,7 +351,7 @@
                                                             }
                                                         }
                                                         foreach($orderlist2 as $key=>$value){
-                                                            if(!empty($value['order_list_a'])){
+                                                            if(!($value['order_list_a'] == "N;")){
                                                                 $orderlist22 = unserialize($value['order_list_a']);
                                                                 $orderA = unserialize($value['order_quantity_a']);
                                                                 foreach($orderA as $key=>$value){
@@ -643,7 +643,11 @@
                                                             echo "<tr>";
 
                                                                 echo "<td>".$i."</td>";
-                                                                echo "<td>".$value['song_title']."<br>(".$value['album_title'].")</td>";
+                                                                if(!empty($value['song_album_id'])){
+                                                                    echo "<td>".$value['song_title']."<br>(".$value['album_title'].")</td>";
+                                                                }else{
+                                                                    echo "<td>".$value['song_title']."</td>";
+                                                                }
                                                                 echo "<td>".number_format($value['rank'])."</td>";
     
                                                             echo "</tr>";
@@ -672,7 +676,11 @@
                                                         echo "<tr>";
                                                             
                                                             echo "<td>".$i."</td>";
-                                                            echo "<td>".$value['song_title']."<br>(".$value['album_title'].")</td>";
+                                                            if(!empty($value['song_album_id'])){
+                                                                echo "<td>".$value['song_title']."<br>(".$value['album_title'].")</td>";
+                                                            }else{
+                                                                echo "<td>".$value['song_title']."</td>";
+                                                            }
                                                             echo "<td>".number_format($value['rank'])."</td>";
 
                                                         echo "</tr>";
