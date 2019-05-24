@@ -170,7 +170,7 @@
                                                                           $total += (number_format($value['song_price'] * $value['sale_percentage'],2));
                                                                         }else{
                                                                             echo "<td>".$value['song_price']."</td>";
-                                                                            $total += $value['song_price']
+                                                                            $total += $value['song_price'];
                                                                         }
                                                                         echo "<td>".$orderQuantityS."</td>";
                                                                         echo "</tr>";
